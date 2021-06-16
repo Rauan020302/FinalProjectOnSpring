@@ -26,7 +26,7 @@ public class ImageController {
     }
 
     @GetMapping("/{id}")
-    public Image getImageById(@PathVariable Long id) throws ObjectsNotFoundException {
+    public Image getImageById(@PathVariable Long id){
         return imageService.getImageById(id);
     }
 }
