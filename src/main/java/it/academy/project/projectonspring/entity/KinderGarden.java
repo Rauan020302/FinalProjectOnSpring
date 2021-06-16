@@ -16,19 +16,16 @@ public class KinderGarden {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name",nullable = false)
     private String name;
 
     @Column(name = "description")
     private String description;
 
-    @Column(name = "number")
-    private Integer number;
-
-    @Column(name = "address")
+    @Column(name = "address",nullable = false,unique = true)
     private String address;
 
-    @Column(name = "contact")
+    @Column(name = "contact",nullable = false)
     private Integer contact;
 
     @OneToOne

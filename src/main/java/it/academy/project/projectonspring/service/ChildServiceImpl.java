@@ -3,6 +3,7 @@ package it.academy.project.projectonspring.service;
 import it.academy.project.projectonspring.entity.Child;
 import it.academy.project.projectonspring.entity.Group;
 import it.academy.project.projectonspring.entity.Image;
+import it.academy.project.projectonspring.exception.ContactException;
 import it.academy.project.projectonspring.exception.ObjectsNotFoundException;
 import it.academy.project.projectonspring.model.ChildModel;
 import it.academy.project.projectonspring.repository.ChildRepository;
@@ -53,21 +54,26 @@ public class ChildServiceImpl implements ChildService {
 
     @Override
     public Child saveChild(ChildModel childModel) throws ObjectsNotFoundException {
-        //try
         Group group = groupService.getGroupById(childModel.getGroupId());
         Image image = imageService.getImageById(childModel.getImageId());
-        if (group == null)throw new ObjectsNotFoundException();
+        try {
+            if (group == null) throw new ObjectsNotFoundException();
+            if (childModel.getContact().toString().length() != 9) throw new ContactException();
 
-        Child child = Child.builder()
-                .fullName(childModel.getFullName())
-                .age(childModel.getAge())
-                .gender(childModel.getGender())
-                .image(image)
-                .contact(childModel.getContact())
-                .parent(childModel.getParent())
-                .group(group).build();
-        //catch
-        return saveChild(child);
+            Child child = Child.builder()
+                    .fullName(childModel.getFullName())
+                    .age(childModel.getAge())
+                    .gender(childModel.getGender())
+                    .image(image)
+                    .contact(childModel.getContact())
+                    .parent(childModel.getParent())
+                    .group(group).build();
+            return saveChild(child);
+
+        }catch (Exception e){
+            System.out.println("exception " + e.getMessage());
+            throw new ObjectsNotFoundException();
+        }
     }
 
     @Override

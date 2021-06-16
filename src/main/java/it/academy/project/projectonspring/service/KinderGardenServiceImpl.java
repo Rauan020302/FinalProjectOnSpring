@@ -45,7 +45,6 @@ public class KinderGardenServiceImpl implements KinderGardenService {
         KinderGarden kinderGarden = KinderGarden.builder()
                 .name(kinderGardenModel.getName())
                 .description(kinderGardenModel.getDescription())
-                .number(kinderGardenModel.getNumber())
                 .address(kinderGardenModel.getAddress())
                 .contact(kinderGardenModel.getContact())
                 .user(user)
@@ -75,7 +74,6 @@ public class KinderGardenServiceImpl implements KinderGardenService {
         kinderGarden.setName(kinderGardenModel.getName());
         kinderGarden.setAddress(kinderGardenModel.getAddress());
         kinderGarden.setDescription(kinderGardenModel.getDescription());
-        kinderGarden.setNumber(kinderGardenModel.getNumber());
         kinderGarden.setContact(kinderGardenModel.getContact());
         kinderGarden.setUser(user);
         kinderGarden.setImage(image);

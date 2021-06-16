@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
                 || user.getUsername() == null || user.getPassword() == null){
             throw new ObjectsNotFoundException();
         }
-        return getUserWithRole(user);
+        return saveUserWithRole(user);
     }
 
     @Override
@@ -53,10 +53,10 @@ public class UserServiceImpl implements UserService {
                 .createdDate(userModel.getCreatedDate())
                 .build();
 
-        return getUserWithRole(user);
+        return saveUserWithRole(user);
     }
 
-    private User getUserWithRole(User user) {
+    private User saveUserWithRole(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user = userRepository.save(user);
         UserRole userRole = new UserRole();
@@ -96,14 +96,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Long id) throws ObjectsNotFoundException {
         return userRepository.findById(id)
-                .orElseThrow(ObjectsNotFoundException::new);
+                .orElseThrow(() -> new ObjectsNotFoundException("not found" + id));
     }
 
 
 
     @Override
     public List<User> getAllUsers() {
-        //System.out.println("Дайте users для " + SecurityContextHolder.getContext().getAuthentication().getName());
         return userRepository.findAll();
     }
 

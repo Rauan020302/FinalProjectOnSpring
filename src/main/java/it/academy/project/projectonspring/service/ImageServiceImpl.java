@@ -56,7 +56,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public Image getImageById(Long id) throws ObjectsNotFoundException {
+    public Image getImageById(Long id){
         return imageRepository.findById(id).orElse(null);
     }
 }

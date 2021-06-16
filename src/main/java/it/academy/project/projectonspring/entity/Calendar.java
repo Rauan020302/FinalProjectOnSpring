@@ -17,14 +17,14 @@ public class Calendar {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "date")
+    @Column(name = "date",nullable = false)
     private LocalDate date;
 
     @Column(name = "visit")
     private Boolean visit;
 
     @OneToOne
-    @JoinColumn(name = "child_id")
+    @JoinColumn(name = "child_id",nullable = false)
     private Child child;
 
     @OneToOne
