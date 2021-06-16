@@ -2,6 +2,7 @@ package it.academy.project.projectonspring.service;
 
 import it.academy.project.projectonspring.entity.Image;
 import it.academy.project.projectonspring.entity.User;
+import it.academy.project.projectonspring.entity.UserRole;
 import it.academy.project.projectonspring.exception.ObjectsNotFoundException;
 import it.academy.project.projectonspring.model.AuthModel;
 import it.academy.project.projectonspring.model.UserModel;
@@ -21,6 +22,8 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private ImageService imageService;
+    @Autowired
+    private UserRoleService userRoleService;
 
     @Override
     public User saveUser(User user) throws ObjectsNotFoundException {
@@ -28,10 +31,7 @@ public class UserServiceImpl implements UserService {
                 || user.getUsername() == null || user.getPassword() == null){
             throw new ObjectsNotFoundException();
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user = userRepository.save(user);
-
-        return user;
+        return getUserWithRole(user);
     }
 
     @Override
@@ -53,8 +53,16 @@ public class UserServiceImpl implements UserService {
                 .createdDate(userModel.getCreatedDate())
                 .build();
 
+        return getUserWithRole(user);
+    }
+
+    private User getUserWithRole(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user = userRepository.save(user);
+        UserRole userRole = new UserRole();
+        userRole.setRoleName("ROLE_ADMIN");
+        userRole.setUser(user);
+        userRoleService.saveRole(userRole);
         return user;
     }
 

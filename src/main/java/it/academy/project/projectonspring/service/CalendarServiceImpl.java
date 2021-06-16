@@ -28,7 +28,7 @@ public class CalendarServiceImpl implements CalendarService {
     }
 
     @Override
-    public it.academy.project.projectonspring.entity.Calendar getCalendarById(Long id) throws ObjectsNotFoundException {
+    public Calendar getCalendarById(Long id) throws ObjectsNotFoundException {
         User user = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         Calendar calendar = calendarRepository.findById(id).orElse(null);
         Long groupId = calendar.getGroup().getId();
@@ -61,6 +61,7 @@ public class CalendarServiceImpl implements CalendarService {
         calendar.setDate(calendarModel.getDate());
         calendar.setVisit(calendarModel.getVisit());
         return calendarRepository.save(calendar);
+
     }
 
     @Override

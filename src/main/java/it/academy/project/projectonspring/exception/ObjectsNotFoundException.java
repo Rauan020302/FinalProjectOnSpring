@@ -13,7 +13,7 @@ public class ObjectsNotFoundException extends Exception{
     }
 
     public ObjectsNotFoundException(String text, Long id){
-        super(text + " " + id);
+        super(text + id);
     }
 
 
