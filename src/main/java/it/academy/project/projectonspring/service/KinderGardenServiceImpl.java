@@ -26,9 +26,9 @@ public class KinderGardenServiceImpl implements KinderGardenService {
     }
 
     @Override
-    public KinderGarden getKGById(Long id) throws ObjectsNotFoundException {
+    public KinderGarden getKGById(Long id){
         return kinderGardenRepository.findById(id)
-                .orElseThrow(ObjectsNotFoundException::new);
+                .orElseThrow(() -> new ObjectsNotFoundException("not found filial by id - " + id));
     }
 
     @Override
@@ -37,47 +37,60 @@ public class KinderGardenServiceImpl implements KinderGardenService {
     }
 
     @Override
-    public KinderGarden saveKG(KinderGardenModel kinderGardenModel) throws ObjectsNotFoundException {
-        User user = userService.getUserById(kinderGardenModel.getUserId());
-        Image image = imageService.getImageById(kinderGardenModel.getImageId());
-        if (user == null || image == null)throw new ObjectsNotFoundException();
+    public KinderGarden saveKG(KinderGardenModel kinderGardenModel){
+        try {
+            User user = userService.getUserById(kinderGardenModel.getUserId());
+            Image image = imageService.getImageById(kinderGardenModel.getImageId());
+            if (user == null || image == null) throw new ObjectsNotFoundException();
 
-        KinderGarden kinderGarden = KinderGarden.builder()
-                .name(kinderGardenModel.getName())
-                .description(kinderGardenModel.getDescription())
-                .address(kinderGardenModel.getAddress())
-                .contact(kinderGardenModel.getContact())
-                .user(user)
-                .image(image).build();
-        return saveKG(kinderGarden);
-    }
-
-
-
-    @Override
-    public KinderGarden deleteKGById(Long id) throws ObjectsNotFoundException {
-        KinderGarden kinderGarden = getKGById(id);
-        if (kinderGarden != null){
-            kinderGardenRepository.delete(kinderGarden);
-            return kinderGarden;
+            KinderGarden kinderGarden = KinderGarden.builder()
+                    .name(kinderGardenModel.getName())
+                    .description(kinderGardenModel.getDescription())
+                    .address(kinderGardenModel.getAddress())
+                    .contact(kinderGardenModel.getContact())
+                    .user(user)
+                    .image(image).build();
+            return saveKG(kinderGarden);
+        }catch (ObjectsNotFoundException e){
+            throw new ObjectsNotFoundException("user or image not found");
         }
-        throw new ObjectsNotFoundException();
+    }
+
+
+
+    @Override
+    public KinderGarden deleteKGById(Long id) {
+        KinderGarden kinderGarden = getKGById(id);
+        //try {
+            if (kinderGarden != null) {
+                kinderGardenRepository.delete(kinderGarden);
+                return kinderGarden;
+            }
+            return null;
+//            throw new ObjectsNotFoundException();
+//        } catch (ObjectsNotFoundException e) {
+//            throw new ObjectsNotFoundException("filial is not deleted");
+//        }
     }
 
     @Override
-    public KinderGarden updateKGById(KinderGardenModel kinderGardenModel, Long id) throws ObjectsNotFoundException {
+    public KinderGarden updateKGById(KinderGardenModel kinderGardenModel, Long id) {
         User user = userService.getUserById(kinderGardenModel.getUserId());
         Image image = imageService.getImageById(kinderGardenModel.getImageId());
-        if (user == null || image == null)throw new ObjectsNotFoundException();
+        try {
+            if (user == null || image == null) throw new ObjectsNotFoundException();
 
-        KinderGarden kinderGarden = getKGById(id);
-        kinderGarden.setName(kinderGardenModel.getName());
-        kinderGarden.setAddress(kinderGardenModel.getAddress());
-        kinderGarden.setDescription(kinderGardenModel.getDescription());
-        kinderGarden.setContact(kinderGardenModel.getContact());
-        kinderGarden.setUser(user);
-        kinderGarden.setImage(image);
-        return saveKG(kinderGarden);
+            KinderGarden kinderGarden = getKGById(id);
+            kinderGarden.setName(kinderGardenModel.getName());
+            kinderGarden.setAddress(kinderGardenModel.getAddress());
+            kinderGarden.setDescription(kinderGardenModel.getDescription());
+            kinderGarden.setContact(kinderGardenModel.getContact());
+            kinderGarden.setUser(user);
+            kinderGarden.setImage(image);
+            return saveKG(kinderGarden);
+        }catch (ObjectsNotFoundException e){
+            throw new ObjectsNotFoundException("not found filial by id - " + id);
+        }
     }
 }
 

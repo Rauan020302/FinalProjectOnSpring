@@ -1,7 +1,6 @@
 package it.academy.project.projectonspring.controller;
 
 import it.academy.project.projectonspring.entity.KinderGarden;
-import it.academy.project.projectonspring.exception.ObjectsNotFoundException;
 import it.academy.project.projectonspring.model.KinderGardenModel;
 import it.academy.project.projectonspring.service.KinderGardenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,7 @@ public class KinderGardenController {
     private KinderGardenService kinderGardenService;
 
     @PostMapping
-    private KinderGarden saveKG(@RequestBody KinderGardenModel kinderGardenModel) throws ObjectsNotFoundException {
+    private KinderGarden saveKG(@RequestBody KinderGardenModel kinderGardenModel){
         return kinderGardenService.saveKG(kinderGardenModel);
     }
     @GetMapping
@@ -24,16 +23,16 @@ public class KinderGardenController {
         return kinderGardenService.getAllKG();
     }
     @GetMapping("/{id}")
-    public KinderGarden getKGById(@PathVariable Long id) throws ObjectsNotFoundException {
+    public KinderGarden getKGById(@PathVariable Long id){
         return kinderGardenService.getKGById(id);
     }
     @DeleteMapping("/{id}")
-    public KinderGarden deleteKGById(@PathVariable Long id) throws ObjectsNotFoundException {
+    public KinderGarden deleteKGById(@PathVariable Long id){
         return kinderGardenService.deleteKGById(id);
     }
     @PutMapping("/{id}")
     public KinderGarden updateKGById(@RequestBody KinderGardenModel kinderGardenModel,
-                                     @PathVariable Long id) throws ObjectsNotFoundException {
+                                     @PathVariable Long id){
         return kinderGardenService.updateKGById(kinderGardenModel,id);
     }
 }

@@ -23,7 +23,7 @@ public class CourseController {
         return courseService.getALlCourse();
     }
     @GetMapping("/{id}")
-    public Course getCourseById(@PathVariable Long id) throws ObjectsNotFoundException {
+    public Course getCourseById(@PathVariable Long id){
         return courseService.getCourseById(id);
     }
     @PutMapping("/{id}")

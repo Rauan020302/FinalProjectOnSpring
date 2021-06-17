@@ -3,6 +3,7 @@ package it.academy.project.projectonspring.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "kinder_garden")
@@ -35,6 +36,10 @@ public class KinderGarden {
     @OneToOne
     @JoinColumn(name = "image_id")
     private Image image;
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "kinderGarden")
+    private List<Group> groups;
+
 
 
 }

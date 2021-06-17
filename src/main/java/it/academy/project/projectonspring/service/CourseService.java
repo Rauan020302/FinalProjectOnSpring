@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CourseService {
     List<Course> getALlCourse();
-    Course getCourseById(Long id) throws ObjectsNotFoundException;
+    Course getCourseById(Long id);
     Course deleteCourseById(Long id) throws ObjectsNotFoundException;
     Course updateCourseById(Course course, Long id) throws ObjectsNotFoundException;
     Course saveCourse(Course course);

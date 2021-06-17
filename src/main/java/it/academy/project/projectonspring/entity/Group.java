@@ -19,7 +19,7 @@ public class Group {
     @Column(name = "name",nullable = false)
     private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "kinder_id",nullable = false)
     private KinderGarden kinderGarden;
 

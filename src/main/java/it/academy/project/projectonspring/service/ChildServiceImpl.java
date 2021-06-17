@@ -32,9 +32,9 @@ public class ChildServiceImpl implements ChildService {
     }
 
     @Override
-    public Child getChildById(Long id) throws ObjectsNotFoundException {
+    public Child getChildById(Long id){
         return childRepository.findById(id)
-                .orElseThrow(ObjectsNotFoundException::new);
+                .orElseThrow(() -> new ObjectsNotFoundException("child not found" + id));
     }
 
     @Override
@@ -53,12 +53,12 @@ public class ChildServiceImpl implements ChildService {
     }
 
     @Override
-    public Child saveChild(ChildModel childModel) throws ObjectsNotFoundException {
+    public Child saveChild(ChildModel childModel){
         Group group = groupService.getGroupById(childModel.getGroupId());
         Image image = imageService.getImageById(childModel.getImageId());
         try {
-            if (group == null) throw new ObjectsNotFoundException();
-            if (childModel.getContact().toString().length() != 9) throw new ContactException();
+            if (group == null) throw new ObjectsNotFoundException("group not found");
+            if (childModel.getContact().toString().length() != 9) throw new ContactException("bad number");
 
             Child child = Child.builder()
                     .fullName(childModel.getFullName())
@@ -70,9 +70,10 @@ public class ChildServiceImpl implements ChildService {
                     .group(group).build();
             return saveChild(child);
 
-        }catch (Exception e){
-            System.out.println("exception " + e.getMessage());
-            throw new ObjectsNotFoundException();
+        }catch (ObjectsNotFoundException e){
+            throw new ObjectsNotFoundException("group not found");
+        }catch (ContactException e){
+            throw new ContactException("bad number");
         }
     }
 

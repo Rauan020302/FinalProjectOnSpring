@@ -19,9 +19,9 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course getCourseById(Long id) throws ObjectsNotFoundException {
+    public Course getCourseById(Long id){
         return courseRepository.findById(id)
-                .orElseThrow(ObjectsNotFoundException::new);
+                .orElseThrow(() -> new ObjectsNotFoundException("course not found"));
     }
 
     @Override

@@ -16,7 +16,7 @@ public class ChildController {
     private ChildService childService;
 
     @PostMapping
-    public Child saveChild(@RequestBody ChildModel childModel) throws ObjectsNotFoundException {
+    public Child saveChild(@RequestBody ChildModel childModel){
         return childService.saveChild(childModel);
     }
 
@@ -30,8 +30,8 @@ public class ChildController {
     }
 
     @GetMapping("/{id}")
-    public Child getChildById(@PathVariable Long id) throws ObjectsNotFoundException {
-        return childService.getChildById(id);
+    public Child getChildById(@PathVariable Long id){
+            return childService.getChildById(id);
     }
 
     @DeleteMapping("/{id}")

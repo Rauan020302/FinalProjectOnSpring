@@ -25,7 +25,7 @@ public class CalendarController {
     }
     @GetMapping
     public List<Calendar> getAllCalendar(){
-        return calendarService.getAllCalendar();
+            return calendarService.getAllCalendar();
     }
     @GetMapping("/group/{id}")
     public List<Calendar> getAllCalendarByGroupId(@PathVariable Long id){
