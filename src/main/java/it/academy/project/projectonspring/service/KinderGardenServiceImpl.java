@@ -3,6 +3,7 @@ package it.academy.project.projectonspring.service;
 import it.academy.project.projectonspring.entity.Image;
 import it.academy.project.projectonspring.entity.KinderGarden;
 import it.academy.project.projectonspring.entity.User;
+import it.academy.project.projectonspring.exception.ContactException;
 import it.academy.project.projectonspring.exception.ObjectsNotFoundException;
 import it.academy.project.projectonspring.model.KinderGardenModel;
 import it.academy.project.projectonspring.repository.KinderGardenRepository;
@@ -38,10 +39,11 @@ public class KinderGardenServiceImpl implements KinderGardenService {
 
     @Override
     public KinderGarden saveKG(KinderGardenModel kinderGardenModel){
+        User user = userService.getUserById(kinderGardenModel.getUserId());
+        Image image = imageService.getImageById(kinderGardenModel.getImageId());
         try {
-            User user = userService.getUserById(kinderGardenModel.getUserId());
-            Image image = imageService.getImageById(kinderGardenModel.getImageId());
             if (user == null || image == null) throw new ObjectsNotFoundException();
+            if (kinderGardenModel.getContact().toString().length() != 9) throw new ContactException();
 
             KinderGarden kinderGarden = KinderGarden.builder()
                     .name(kinderGardenModel.getName())
@@ -53,6 +55,8 @@ public class KinderGardenServiceImpl implements KinderGardenService {
             return saveKG(kinderGarden);
         }catch (ObjectsNotFoundException e){
             throw new ObjectsNotFoundException("user or image not found");
+        }catch (ContactException e){
+            throw new ContactException("contact number is not correct");
         }
     }
 
@@ -61,16 +65,11 @@ public class KinderGardenServiceImpl implements KinderGardenService {
     @Override
     public KinderGarden deleteKGById(Long id) {
         KinderGarden kinderGarden = getKGById(id);
-        //try {
-            if (kinderGarden != null) {
-                kinderGardenRepository.delete(kinderGarden);
-                return kinderGarden;
-            }
-            return null;
-//            throw new ObjectsNotFoundException();
-//        } catch (ObjectsNotFoundException e) {
-//            throw new ObjectsNotFoundException("filial is not deleted");
-//        }
+        if (kinderGarden != null) {
+            kinderGardenRepository.delete(kinderGarden);
+            return kinderGarden;
+        }
+        return null;
     }
 
     @Override

@@ -56,7 +56,7 @@ public class GroupServiceImpl implements GroupService{
     public Group updateGroupById(GroupModel groupModel, Long id) throws ObjectsNotFoundException {
         KinderGarden kinderGarden = kinderGardenService.getKGById(groupModel.getKinderGardenId());
         Image image = imageService.getImageById(groupModel.getImageId());
-        if(kinderGarden == null) throw new ObjectsNotFoundException();
+        if(kinderGarden == null || image == null) throw new ObjectsNotFoundException();
 
         Group group = getGroupById(id);
         group.setName(groupModel.getName());
@@ -76,7 +76,7 @@ public class GroupServiceImpl implements GroupService{
     public Group saveGroup(GroupModel groupModel) throws ObjectsNotFoundException {
         KinderGarden kinderGarden = kinderGardenService.getKGById(groupModel.getKinderGardenId());
         Image image = imageService.getImageById(groupModel.getImageId());
-        if(kinderGarden == null) throw new ObjectsNotFoundException();
+        if(kinderGarden == null || image == null) throw new ObjectsNotFoundException();
 
         Group group = Group.builder()
                 .image(image)

@@ -37,8 +37,7 @@ public class KinderGarden {
     @JoinColumn(name = "image_id")
     private Image image;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "kinderGarden")
-    private List<Group> groups;
+
 
 
 
