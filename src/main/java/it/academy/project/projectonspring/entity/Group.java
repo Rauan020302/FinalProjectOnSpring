@@ -19,17 +19,18 @@ public class Group {
     @Column(name = "name",nullable = false)
     private String name;
 
+    @Column(name = "full_name_teacher")
+    private String teacherFullName;
+
+    @Column(name = "info")
+    private String info;
+
     @ManyToOne
     @JoinColumn(name = "kinder_id",nullable = false)
     private KinderGarden kinderGarden;
-
-    @Column(name = "full_name_teacher")
-    private String teacherFullName;
 
     @OneToOne
     @JoinColumn(name = "image_id")
     private Image image;
 
-    @Column(name = "info")
-    private String info;
 }

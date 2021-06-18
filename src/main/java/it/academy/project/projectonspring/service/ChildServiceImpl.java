@@ -38,13 +38,13 @@ public class ChildServiceImpl implements ChildService {
     }
 
     @Override
-    public Child deleteChildById(Long id) throws ObjectsNotFoundException {
+    public Child deleteChildById(Long id){
         Child child = getChildById(id);
         if (child != null){
             childRepository.delete(child);
             return child;
         }
-        throw new ObjectsNotFoundException();
+        return null;
     }
 
     @Override
@@ -57,8 +57,8 @@ public class ChildServiceImpl implements ChildService {
         Group group = groupService.getGroupById(childModel.getGroupId());
         Image image = imageService.getImageById(childModel.getImageId());
         try {
-            if (group == null) throw new ObjectsNotFoundException("group not found");
-            if (childModel.getContact().toString().length() != 9) throw new ContactException("bad number");
+            if (group == null) throw new ObjectsNotFoundException();
+            if (childModel.getContact().toString().length() != 9) throw new ContactException();
 
             Child child = Child.builder()
                     .fullName(childModel.getFullName())
@@ -78,20 +78,24 @@ public class ChildServiceImpl implements ChildService {
     }
 
     @Override
-    public Child updateChild(ChildModel childModel, Long id) throws ObjectsNotFoundException {
+    public Child updateChild(ChildModel childModel, Long id){
         Group group = groupService.getGroupById(childModel.getGroupId());
         Image image = imageService.getImageById(childModel.getImageId());
-        Child child = getChildById(id);
-        if (group == null || child == null) throw new ObjectsNotFoundException();
+        try {
+            if (group == null || image == null) throw new ObjectsNotFoundException();
 
-        child.setFullName(childModel.getFullName());
-        child.setAge(childModel.getAge());
-        child.setGender(childModel.getGender());
-        child.setImage(image);
-        child.setContact(childModel.getContact());
-        child.setParent(childModel.getParent());
-        child.setGroup(group);
-        return saveChild(child);
+            Child child = getChildById(id);
+            child.setFullName(childModel.getFullName());
+            child.setAge(childModel.getAge());
+            child.setGender(childModel.getGender());
+            child.setImage(image);
+            child.setContact(childModel.getContact());
+            child.setParent(childModel.getParent());
+            child.setGroup(group);
+            return saveChild(child);
+        }catch (ObjectsNotFoundException e){
+            throw new ObjectsNotFoundException("not found child by id - " + id);
+        }
     }
 }
 

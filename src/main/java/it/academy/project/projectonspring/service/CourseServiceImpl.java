@@ -21,24 +21,22 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Course getCourseById(Long id){
         return courseRepository.findById(id)
-                .orElseThrow(() -> new ObjectsNotFoundException("course not found"));
+                .orElseThrow(() -> new ObjectsNotFoundException("not found course by id - " + id));
     }
 
     @Override
-    public Course deleteCourseById(Long id) throws ObjectsNotFoundException {
+    public Course deleteCourseById(Long id){
         Course course = getCourseById(id);
         if (course != null){
             courseRepository.delete(course);
             return course;
         }
-        throw new ObjectsNotFoundException();
+        return null;
     }
 
     @Override
-    public Course updateCourseById(Course course, Long id) throws ObjectsNotFoundException {
+    public Course updateCourseById(Course course, Long id){
         Course course1 = getCourseById(id);
-        if (course1 == null)throw new ObjectsNotFoundException();
-
         course1.setName(course.getName());
         course1.setTimeEnd(course.getTimeEnd());
         course1.setTimeStart(course.getTimeStart());

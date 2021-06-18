@@ -1,7 +1,6 @@
 package it.academy.project.projectonspring.controller;
 
 import it.academy.project.projectonspring.entity.UserRole;
-import it.academy.project.projectonspring.exception.ObjectsNotFoundException;
 import it.academy.project.projectonspring.model.UserRoleModel;
 import it.academy.project.projectonspring.service.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,7 @@ public class UserRoleController {
     private UserRoleService userRoleService;
 
     @PostMapping
-    public UserRole saveUserRole(@RequestBody UserRoleModel userRoleModel) throws IllegalAccessException, ObjectsNotFoundException {
+    public UserRole saveUserRole(@RequestBody UserRoleModel userRoleModel){
         return userRoleService.saveRole(userRoleModel);
     }
     @GetMapping
@@ -28,16 +27,16 @@ public class UserRoleController {
         return userRoleService.findAllByUser_Id(id);
     }
     @GetMapping("/{id}")
-    public UserRole getUserRoleById(@PathVariable Long id) throws ObjectsNotFoundException {
+    public UserRole getUserRoleById(@PathVariable Long id){
         return userRoleService.getRoleById(id);
     }
     @DeleteMapping("/{id}")
-    public UserRole deleteUserRoleById(@PathVariable Long id) throws ObjectsNotFoundException {
+    public UserRole deleteUserRoleById(@PathVariable Long id){
         return userRoleService.deleteRoleById(id);
     }
     @PutMapping("/{id}")
     public UserRole updateUserRoleById(@RequestBody UserRoleModel userRoleModel,
-                                       @PathVariable Long id) throws ObjectsNotFoundException {
+                                       @PathVariable Long id){
         return userRoleService.updateRoleById(userRoleModel,id);
     }
 }

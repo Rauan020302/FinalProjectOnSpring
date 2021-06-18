@@ -11,7 +11,7 @@ import java.time.ZonedDateTime;
 public class NotFoundExceptionHandler {
     @ExceptionHandler(value = {ObjectsNotFoundException.class})
     public ResponseEntity<Object> handleApiRequestException(ObjectsNotFoundException e){
-        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
+        HttpStatus badRequest = HttpStatus.NOT_FOUND;
         Exception exception = new Exception(
                 e.getMessage(),
                 badRequest,
@@ -28,5 +28,15 @@ public class NotFoundExceptionHandler {
                 ZonedDateTime.now(ZoneId.of("Z"))
         );
         return new ResponseEntity<>(exception,badNumber);
+    }
+    @ExceptionHandler(value = {AuthorizationException.class})
+    public ResponseEntity<Object> hadleApiRequestException(AuthorizationException e){
+        HttpStatus auth = HttpStatus.FORBIDDEN;
+        Exception exception = new Exception(
+                e.getMessage(),
+                auth,
+                ZonedDateTime.now(ZoneId.of("Z"))
+        );
+        return new ResponseEntity<>(exception,auth);
     }
 }

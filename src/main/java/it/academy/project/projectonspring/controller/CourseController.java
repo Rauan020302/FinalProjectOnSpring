@@ -1,7 +1,6 @@
 package it.academy.project.projectonspring.controller;
 
 import it.academy.project.projectonspring.entity.Course;
-import it.academy.project.projectonspring.exception.ObjectsNotFoundException;
 import it.academy.project.projectonspring.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,11 +26,11 @@ public class CourseController {
         return courseService.getCourseById(id);
     }
     @PutMapping("/{id}")
-    public Course updateCourseById(@RequestBody Course course,@PathVariable Long id) throws ObjectsNotFoundException {
+    public Course updateCourseById(@RequestBody Course course,@PathVariable Long id){
         return courseService.updateCourseById(course,id);
     }
     @DeleteMapping("/{id}")
-    public Course deleteCourseById(@PathVariable Long id) throws ObjectsNotFoundException {
+    public Course deleteCourseById(@PathVariable Long id){
         return courseService.deleteCourseById(id);
     }
 }

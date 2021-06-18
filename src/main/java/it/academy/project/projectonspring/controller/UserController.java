@@ -1,7 +1,7 @@
 package it.academy.project.projectonspring.controller;
 
 import it.academy.project.projectonspring.entity.User;
-import it.academy.project.projectonspring.exception.ObjectsNotFoundException;
+import it.academy.project.projectonspring.exception.AuthorizationException;
 import it.academy.project.projectonspring.model.AuthModel;
 import it.academy.project.projectonspring.model.UserModel;
 import it.academy.project.projectonspring.service.UserService;
@@ -17,11 +17,11 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/sign-up")
-    public User saveUser (@RequestBody UserModel userModel) throws ObjectsNotFoundException {
+    public User saveUser (@RequestBody UserModel userModel) throws AuthorizationException {
         return userService.saveUser(userModel);
     }
     @PostMapping("/sign-in")
-    public String getToken(@RequestBody AuthModel authModel) throws ObjectsNotFoundException {
+    public String getToken(@RequestBody AuthModel authModel) {
         return userService.getTokenByAuthModel(authModel);
     }
 
@@ -30,15 +30,15 @@ public class UserController {
         return userService.getAllUsers();
     }
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) throws ObjectsNotFoundException {
+    public User getUserById(@PathVariable Long id){
         return userService.getUserById(id);
     }
     @DeleteMapping("/{id}")
-    public User deleteUser(@PathVariable Long id) throws ObjectsNotFoundException {
+    public User deleteUser(@PathVariable Long id){
         return userService.deleteUserById(id);
     }
     @PutMapping("/{id}")
-    public User updateUser(@RequestBody UserModel userModel, @PathVariable Long id) throws ObjectsNotFoundException {
+    public User updateUser(@RequestBody UserModel userModel, @PathVariable Long id) throws AuthorizationException {
         return userService.updateUserById(userModel,id);
     }
 }

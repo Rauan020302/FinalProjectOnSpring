@@ -24,6 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
                 .antMatchers("/api/**").permitAll()
+                .antMatchers("**").permitAll()
 //                .antMatchers(HttpMethod.GET,"/api/users/**").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.DELETE,"/api/users/**").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.PUT,"/api/users/**").hasRole("ADMIN")
@@ -33,11 +34,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers(HttpMethod.DELETE,"/api/user-role/**").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.PUT,"/api/user-role/**").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.GET,"/api/user-role/**").permitAll()
-//
-//                .antMatchers(HttpMethod.POST,"/api/regime/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.DELETE,"/api/regime/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.PUT,"/api/regime/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.GET,"/api/regime/**").permitAll()
 //
 //                .antMatchers(HttpMethod.POST,"/api/garden/**").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.DELETE,"/api/garden/**").hasRole("ADMIN")
@@ -53,11 +49,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers(HttpMethod.DELETE,"/api/group/**").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.PUT,"/api/group/**").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.GET,"/api/group/**").permitAll()
-//
-//                .antMatchers(HttpMethod.POST,"/api/daily_regime/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.DELETE,"/api/daily_regime/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.PUT,"/api/daily_regime/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.GET,"/api/daily_regime/**").permitAll()
 //
 //                .antMatchers(HttpMethod.POST,"/api/course_group/**").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.DELETE,"/api/course_group/**").hasRole("ADMIN")

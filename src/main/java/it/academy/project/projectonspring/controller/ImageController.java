@@ -21,7 +21,7 @@ public class ImageController {
         return imageService.getAllImage();
     }
     @PostMapping
-    public Image createImage(@RequestParam(name = "file") MultipartFile multipartFile) throws IOException, ObjectsNotFoundException {
+    public Image createImage(@RequestParam(name = "file") MultipartFile multipartFile) throws IOException {
         return imageService.createImage(multipartFile);
     }
 

@@ -36,31 +36,35 @@ public class CourseGroupServiceImpl implements CourseGroupService {
     }
 
     @Override
-    public CourseGroup getById(Long id) throws ObjectsNotFoundException {
+    public CourseGroup getById(Long id){
         return courseGroupRepository.findById(id)
-                .orElseThrow(ObjectsNotFoundException::new);
+                .orElseThrow(() -> new ObjectsNotFoundException("not found courseGroup by id - " + id));
     }
 
     @Override
-    public CourseGroup deleteById(Long id) throws ObjectsNotFoundException {
+    public CourseGroup deleteById(Long id){
         CourseGroup courseGroup = getById(id);
         if (courseGroup != null){
             courseGroupRepository.delete(courseGroup);
             return courseGroup;
         }
-        throw new ObjectsNotFoundException();
+        return null;
     }
 
     @Override
-    public CourseGroup save(CourseGroupModel courseGroupModel) throws ObjectsNotFoundException {
+    public CourseGroup save(CourseGroupModel courseGroupModel){
         Group group = groupService.getGroupById(courseGroupModel.getGroupId());
         Course course = courseService.getCourseById(courseGroupModel.getCourseId());
-        if (group == null || course == null)throw new ObjectsNotFoundException();
+        try {
+            if (group == null || course == null) throw new ObjectsNotFoundException();
 
-        CourseGroup courseGroup = CourseGroup.builder()
-                .group(group)
-                .course(course).build();
-        return save(courseGroup);
+            CourseGroup courseGroup = CourseGroup.builder()
+                    .group(group)
+                    .course(course).build();
+            return save(courseGroup);
+        }catch (ObjectsNotFoundException e){
+            throw new ObjectsNotFoundException("not found group or course");
+        }
     }
 
     @Override
@@ -69,14 +73,18 @@ public class CourseGroupServiceImpl implements CourseGroupService {
     }
 
     @Override
-    public CourseGroup updateById(CourseGroupModel courseGroupModel, Long id) throws ObjectsNotFoundException {
+    public CourseGroup updateById(CourseGroupModel courseGroupModel, Long id){
         Course course = courseService.getCourseById(courseGroupModel.getCourseId());
         Group group = groupService.getGroupById(courseGroupModel.getGroupId());
-        CourseGroup courseGroup = getById(id);
-        if (group == null || course == null || courseGroup == null)throw new ObjectsNotFoundException();
+        try {
+            if (group == null || course == null) throw new ObjectsNotFoundException();
 
-        courseGroup.setCourse(course);
-        courseGroup.setGroup(group);
-        return save(courseGroup);
+            CourseGroup courseGroup = getById(id);
+            courseGroup.setCourse(course);
+            courseGroup.setGroup(group);
+            return save(courseGroup);
+        }catch (ObjectsNotFoundException e){
+            throw new ObjectsNotFoundException("not found courseGroup by id - " + id);
+        }
     }
 }

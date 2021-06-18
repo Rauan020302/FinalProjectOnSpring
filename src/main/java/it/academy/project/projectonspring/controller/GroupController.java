@@ -1,7 +1,6 @@
 package it.academy.project.projectonspring.controller;
 
 import it.academy.project.projectonspring.entity.Group;
-import it.academy.project.projectonspring.exception.ObjectsNotFoundException;
 import it.academy.project.projectonspring.model.GroupModel;
 import it.academy.project.projectonspring.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ public class GroupController {
         return groupService.findAllByKinderGarden_Id(id);
     }
     @PostMapping
-    public Group saveGroup(@RequestBody GroupModel groupModel) throws ObjectsNotFoundException {
+    public Group saveGroup(@RequestBody GroupModel groupModel){
         return groupService.saveGroup(groupModel);
     }
 
@@ -31,17 +30,17 @@ public class GroupController {
     }
 
     @GetMapping("/{id}")
-    public Group getGroupById(@PathVariable Long id) throws ObjectsNotFoundException {
+    public Group getGroupById(@PathVariable Long id){
         return groupService.getGroupById(id);
     }
 
     @DeleteMapping("/{id}")
-    public Group deleteGroupById(@PathVariable Long id) throws ObjectsNotFoundException {
+    public Group deleteGroupById(@PathVariable Long id){
         return groupService.deleteGroupById(id);
     }
 
     @PutMapping("/{id}")
-    public Group updateGroupById(@RequestBody GroupModel groupModel,@PathVariable Long id) throws ObjectsNotFoundException {
+    public Group updateGroupById(@RequestBody GroupModel groupModel,@PathVariable Long id){
         return groupService.updateGroupById(groupModel,id);
     }
 }

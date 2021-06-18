@@ -3,10 +3,12 @@ package it.academy.project.projectonspring.service;
 import it.academy.project.projectonspring.entity.Group;
 import it.academy.project.projectonspring.entity.Image;
 import it.academy.project.projectonspring.entity.KinderGarden;
+import it.academy.project.projectonspring.entity.User;
 import it.academy.project.projectonspring.exception.ObjectsNotFoundException;
 import it.academy.project.projectonspring.model.GroupModel;
 import it.academy.project.projectonspring.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +21,9 @@ public class GroupServiceImpl implements GroupService{
     private KinderGardenService kinderGardenService;
     @Autowired
     private ImageService imageService;
+    @Autowired
+    private UserService userService;
+
 
     @Override
     public List<Group> findAllByKinderGarden_Id(Long id) {
@@ -31,40 +36,47 @@ public class GroupServiceImpl implements GroupService{
     }
 
     @Override
-    public Group getGroupById(Long id) throws ObjectsNotFoundException {
-//        User user = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-//        Group group = groupRepository.findById(id).orElse(null);
-//        UserRole userRole = userRoleService.findAllByUser_Id(user.getId());
-//        if (!group.getKinderGarden().getUser().getUsername().equals(user.getUsername()) || !userRole.getRoleName().equals("ADMIN")) {
-//            throw new ObjectsNotFoundException("not not");
-//        }
+    public Group getGroupById(Long id){
+        User user = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        Group group = groupRepository.findById(id).orElse(null);
+        try {
+            if (!group.getKinderGarden().getUser().getUsername().equals(user.getUsername()))
+                throw new ObjectsNotFoundException();
+        }catch (ObjectsNotFoundException e){
+            throw new ObjectsNotFoundException("user does not have access");
+        }
         return groupRepository.findById(id)
-                .orElseThrow(ObjectsNotFoundException::new);
+                .orElseThrow(() -> new ObjectsNotFoundException("not found group by id " + id));
     }
 
     @Override
-    public Group deleteGroupById(Long id) throws ObjectsNotFoundException {
+    public Group deleteGroupById(Long id){
         Group group = getGroupById(id);
         if (group != null){
             groupRepository.delete(group);
             return group;
         }
-        throw new ObjectsNotFoundException();
+        return null;
     }
 
     @Override
     public Group updateGroupById(GroupModel groupModel, Long id) throws ObjectsNotFoundException {
         KinderGarden kinderGarden = kinderGardenService.getKGById(groupModel.getKinderGardenId());
         Image image = imageService.getImageById(groupModel.getImageId());
-        if(kinderGarden == null || image == null) throw new ObjectsNotFoundException();
+        try{
+            if(kinderGarden == null || image == null) throw new ObjectsNotFoundException();
 
-        Group group = getGroupById(id);
-        group.setName(groupModel.getName());
-        group.setKinderGarden(kinderGarden);
-        group.setImage(image);
-        group.setInfo(groupModel.getInfo());
-        group.setTeacherFullName(groupModel.getTeacherFullName());
-        return saveGroup(group);
+            Group group = getGroupById(id);
+            group.setName(groupModel.getName());
+            group.setKinderGarden(kinderGarden);
+            group.setImage(image);
+            group.setInfo(groupModel.getInfo());
+            group.setTeacherFullName(groupModel.getTeacherFullName());
+            return saveGroup(group);
+
+        }catch (ObjectsNotFoundException e){
+            throw new ObjectsNotFoundException("not found group by id "+ id);
+        }
     }
 
     @Override
@@ -76,15 +88,20 @@ public class GroupServiceImpl implements GroupService{
     public Group saveGroup(GroupModel groupModel) throws ObjectsNotFoundException {
         KinderGarden kinderGarden = kinderGardenService.getKGById(groupModel.getKinderGardenId());
         Image image = imageService.getImageById(groupModel.getImageId());
-        if(kinderGarden == null || image == null) throw new ObjectsNotFoundException();
+        try {
+            if (kinderGarden == null || image == null) throw new ObjectsNotFoundException();
 
-        Group group = Group.builder()
-                .image(image)
-                .info(groupModel.getInfo())
-                .teacherFullName(groupModel.getTeacherFullName())
-                .name(groupModel.getName())
-                .kinderGarden(kinderGarden).build();
-        return saveGroup(group);
+            Group group = Group.builder()
+                    .image(image)
+                    .info(groupModel.getInfo())
+                    .teacherFullName(groupModel.getTeacherFullName())
+                    .name(groupModel.getName())
+                    .kinderGarden(kinderGarden).build();
+
+            return saveGroup(group);
+        }catch (ObjectsNotFoundException e ){
+            throw new ObjectsNotFoundException("filial or image not found ");
+        }
     }
 }
 

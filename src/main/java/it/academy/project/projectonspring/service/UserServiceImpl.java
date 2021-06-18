@@ -3,6 +3,7 @@ package it.academy.project.projectonspring.service;
 import it.academy.project.projectonspring.entity.Image;
 import it.academy.project.projectonspring.entity.User;
 import it.academy.project.projectonspring.entity.UserRole;
+import it.academy.project.projectonspring.exception.AuthorizationException;
 import it.academy.project.projectonspring.exception.ObjectsNotFoundException;
 import it.academy.project.projectonspring.model.AuthModel;
 import it.academy.project.projectonspring.model.UserModel;
@@ -26,34 +27,42 @@ public class UserServiceImpl implements UserService {
     private UserRoleService userRoleService;
 
     @Override
-    public User saveUser(User user) throws ObjectsNotFoundException {
-        if (user.getUsername().equals("") || user.getPassword().equals("")
-                || user.getUsername() == null || user.getPassword() == null){
-            throw new ObjectsNotFoundException();
+    public User saveUser(User user) throws AuthorizationException {
+        try {
+            if (user.getUsername().equals("") || user.getPassword().equals("")
+                    || user.getUsername() == null || user.getPassword() == null) {
+                throw new AuthorizationException();
+            }
+            return saveUserWithRole(user);
+        }catch (AuthorizationException e){
+            throw new AuthorizationException("username or password is not correct");
         }
-        return saveUserWithRole(user);
     }
 
     @Override
-    public User saveUser(UserModel userModel) throws ObjectsNotFoundException {
-        if (userModel.getUsername().equals("") || userModel.getPassword().equals("")
-                || userModel.getUsername() == null || userModel.getPassword() == null){
-            throw new ObjectsNotFoundException();
-        }
-        Image image = imageService.getImageById(userModel.getImageId());
-        User user = User.builder()
-                .username(userModel.getUsername())
-                .status(userModel.getStatus())
-                .profession(userModel.getProfession())
-                .password(userModel.getPassword())
-                .image(image)
-                .fullName(userModel.getFullName())
-                .contact(userModel.getContact())
-                .address(userModel.getAddress())
-                .createdDate(userModel.getCreatedDate())
-                .build();
+    public User saveUser(UserModel userModel) throws AuthorizationException {
+        try {
+            if (userModel.getUsername().equals("") || userModel.getPassword().equals("")
+                    || userModel.getUsername() == null || userModel.getPassword() == null) {
+                throw new AuthorizationException();
+            }
+            Image image = imageService.getImageById(userModel.getImageId());
+            User user = User.builder()
+                    .username(userModel.getUsername())
+                    .status(userModel.getStatus())
+                    .profession(userModel.getProfession())
+                    .password(userModel.getPassword())
+                    .image(image)
+                    .fullName(userModel.getFullName())
+                    .contact(userModel.getContact())
+                    .address(userModel.getAddress())
+                    .createdDate(userModel.getCreatedDate())
+                    .build();
 
-        return saveUserWithRole(user);
+            return saveUserWithRole(user);
+        }catch (AuthorizationException e){
+            throw new AuthorizationException("username or password is not correct");
+        }
     }
 
     private User saveUserWithRole(User user) {
@@ -67,17 +76,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User deleteUserById(Long id) throws ObjectsNotFoundException {
+    public User deleteUserById(Long id){
         User user = getUserById(id);
         if (user != null){
             userRepository.delete(user);
             return user;
         }
-        throw new ObjectsNotFoundException();
+        return null;
     }
 
     @Override
-    public User updateUserById(UserModel userModel, Long id) throws ObjectsNotFoundException {
+    public User updateUserById(UserModel userModel, Long id) throws AuthorizationException {
         User newUser = getUserById(id);
         Image image = imageService.getImageById(userModel.getImageId());
         if (newUser == null) throw new ObjectsNotFoundException();
@@ -94,7 +103,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(Long id) throws ObjectsNotFoundException {
+    public User getUserById(Long id){
         return userRepository.findById(id)
                 .orElseThrow(() -> new ObjectsNotFoundException("not found user by id - " + id));
     }
@@ -107,13 +116,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUsername(String login) throws ObjectsNotFoundException {
+    public User findByUsername(String login){
         return userRepository.findByUsername(login)
-                .orElseThrow(ObjectsNotFoundException::new);
+                .orElseThrow(() -> new ObjectsNotFoundException("not found user by username " + login));
     }
 
     @Override
-    public String getTokenByAuthModel(AuthModel authModel) throws ObjectsNotFoundException {
+    public String getTokenByAuthModel(AuthModel authModel){
         String authResult = "";
         User user = findByUsername(authModel.getUsername());
         if (user == null) authResult = "Неверный логин/пароль";

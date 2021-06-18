@@ -1,7 +1,6 @@
 package it.academy.project.projectonspring.controller;
 
 import it.academy.project.projectonspring.entity.CourseGroup;
-import it.academy.project.projectonspring.exception.ObjectsNotFoundException;
 import it.academy.project.projectonspring.model.CourseGroupModel;
 import it.academy.project.projectonspring.service.CourseGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ public class CourseGroupController {
     }
 
     @PostMapping
-    public CourseGroup save(@RequestBody CourseGroupModel courseGroupModel) throws ObjectsNotFoundException {
+    public CourseGroup save(@RequestBody CourseGroupModel courseGroupModel){
         return courseGroupService.save(courseGroupModel);
     }
     @GetMapping
@@ -33,16 +32,16 @@ public class CourseGroupController {
         return courseGroupService.getAll();
     }
     @GetMapping("/{id}")
-    public CourseGroup getById(@PathVariable Long id) throws ObjectsNotFoundException {
+    public CourseGroup getById(@PathVariable Long id){
         return courseGroupService.getById(id);
     }
     @DeleteMapping("/{id}")
-    public CourseGroup deleteById(@PathVariable Long id) throws ObjectsNotFoundException {
+    public CourseGroup deleteById(@PathVariable Long id){
         return courseGroupService.deleteById(id);
     }
     @PutMapping("/{id}")
     public CourseGroup updateById(@RequestBody CourseGroupModel courseGroupModel,
-                                  @PathVariable Long id) throws ObjectsNotFoundException {
+                                  @PathVariable Long id){
         return courseGroupService.updateById(courseGroupModel,id);
     }
 }

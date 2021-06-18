@@ -1,7 +1,6 @@
 package it.academy.project.projectonspring.controller;
 
 import it.academy.project.projectonspring.entity.Child;
-import it.academy.project.projectonspring.exception.ObjectsNotFoundException;
 import it.academy.project.projectonspring.model.ChildModel;
 import it.academy.project.projectonspring.service.ChildService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +34,13 @@ public class ChildController {
     }
 
     @DeleteMapping("/{id}")
-    public Child deleteChildById(@PathVariable Long id) throws ObjectsNotFoundException {
+    public Child deleteChildById(@PathVariable Long id){
         return childService.deleteChildById(id);
     }
 
     @PutMapping("/{id}")
     public Child updateChildById(@RequestBody ChildModel childModel,
-                                 @PathVariable Long id) throws ObjectsNotFoundException {
+                                 @PathVariable Long id){
         return childService.updateChild(childModel,id);
     }
 }

@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CalendarModel {
+public class VisitModel {
     private LocalDate date;
 
     private Boolean visit;
