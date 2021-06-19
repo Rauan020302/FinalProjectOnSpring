@@ -20,7 +20,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(getApiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.any()/*.basePackage("it.academy.project.projectonspring.config"*/)
+                .apis(RequestHandlerSelectors.basePackage("it.academy.project.projectonspring.controller"))
                 .paths(PathSelectors.any())
                 .build();
 
