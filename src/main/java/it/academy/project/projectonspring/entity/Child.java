@@ -3,6 +3,7 @@ package it.academy.project.projectonspring.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "child")
@@ -20,7 +21,7 @@ public class Child {
     private String fullName;
 
     @Column(name = "age",nullable = false)
-    private Integer age;
+    private LocalDate age;
 
     @Column(name = "gender",nullable = false)
     private String gender;

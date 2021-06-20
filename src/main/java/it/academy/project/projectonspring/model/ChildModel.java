@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -12,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class ChildModel {
     private String fullName;
 
-    private Integer age;
+    private LocalDate age;
 
     private String gender;
 

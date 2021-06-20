@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
             Image image = imageService.getImageById(userModel.getImageId());
             User user = User.builder()
                     .username(userModel.getUsername())
-                    .status(userModel.getStatus())
+                    .status(1L)
                     .profession(userModel.getProfession())
                     .password(userModel.getPassword())
                     .image(image)
