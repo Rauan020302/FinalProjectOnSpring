@@ -37,14 +37,6 @@ public class GroupServiceImpl implements GroupService{
 
     @Override
     public Group getGroupById(Long id){
-        User user = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        Group group = groupRepository.findById(id).orElse(null);
-        try {
-            if (!group.getKinderGarden().getUser().getUsername().equals(user.getUsername()))
-                throw new ObjectsNotFoundException();
-        }catch (ObjectsNotFoundException e){
-            throw new ObjectsNotFoundException("user does not have access");
-        }
         return groupRepository.findById(id)
                 .orElseThrow(() -> new ObjectsNotFoundException("not found group by id " + id));
     }
