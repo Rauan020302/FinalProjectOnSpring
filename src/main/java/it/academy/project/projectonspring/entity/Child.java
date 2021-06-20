@@ -17,7 +17,7 @@ public class Child {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "full_name",nullable = false,unique = true)
+    @Column(name = "full_name",nullable = false)
     private String fullName;
 
     @Column(name = "age",nullable = false)
