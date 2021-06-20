@@ -34,7 +34,7 @@ public class ChildServiceImpl implements ChildService {
     @Override
     public Child getChildById(Long id){
         return childRepository.findById(id)
-                .orElseThrow(() -> new ObjectsNotFoundException("child not found" + id));
+                .orElseThrow(() -> new ObjectsNotFoundException("not found child by id - " + id));
     }
 
     @Override

@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "child")
+@Table(name = "childs")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

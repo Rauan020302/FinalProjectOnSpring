@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/child")
+@RequestMapping("/api/childs")
 public class ChildController {
     @Autowired
     private ChildService childService;
