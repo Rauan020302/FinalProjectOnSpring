@@ -20,8 +20,8 @@ public class Child {
     @Column(name = "full_name",nullable = false)
     private String fullName;
 
-    @Column(name = "age",nullable = false)
-    private LocalDate age;
+    @Column(name = "birth_day",nullable = false)
+    private LocalDate birthDay;
 
     @Column(name = "gender",nullable = false)
     private String gender;

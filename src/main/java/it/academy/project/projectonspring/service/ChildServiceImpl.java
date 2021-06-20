@@ -62,7 +62,7 @@ public class ChildServiceImpl implements ChildService {
 
             Child child = Child.builder()
                     .fullName(childModel.getFullName())
-                    .age(childModel.getAge())
+                    .birthDay(childModel.getBirthDay())
                     .gender(childModel.getGender())
                     .image(image)
                     .contact(childModel.getContact())
@@ -86,7 +86,7 @@ public class ChildServiceImpl implements ChildService {
 
             Child child = getChildById(id);
             child.setFullName(childModel.getFullName());
-            child.setAge(childModel.getAge());
+            child.setBirthDay(childModel.getBirthDay());
             child.setGender(childModel.getGender());
             child.setImage(image);
             child.setContact(childModel.getContact());

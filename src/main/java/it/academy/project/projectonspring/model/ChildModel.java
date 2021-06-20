@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class ChildModel {
     private String fullName;
 
-    private LocalDate age;
+    private LocalDate birthDay;
 
     private String gender;
 
