@@ -3,12 +3,10 @@ package it.academy.project.projectonspring.service;
 import it.academy.project.projectonspring.entity.Group;
 import it.academy.project.projectonspring.entity.Image;
 import it.academy.project.projectonspring.entity.KinderGarden;
-import it.academy.project.projectonspring.entity.User;
 import it.academy.project.projectonspring.exception.ObjectsNotFoundException;
 import it.academy.project.projectonspring.model.GroupModel;
 import it.academy.project.projectonspring.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,8 +19,6 @@ public class GroupServiceImpl implements GroupService{
     private KinderGardenService kinderGardenService;
     @Autowired
     private ImageService imageService;
-    @Autowired
-    private UserService userService;
 
 
     @Override
