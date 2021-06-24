@@ -1,6 +1,8 @@
 package it.academy.project.projectonspring.entity;
 
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -27,7 +29,8 @@ public class Child {
     private String gender;
 
     @ManyToOne
-    @JoinColumn(name = "group_id",nullable = false)
+    @JoinColumn(name = "group_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Group group;
 
     @Column(name = "parent_full_name",nullable = false)

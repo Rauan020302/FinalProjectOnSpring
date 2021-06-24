@@ -28,7 +28,7 @@ public class User {
     @Column(name = "status")
     private Long status;
 
-    @Column(name = "contact",nullable = false)
+    @Column(name = "contact")
     private Integer contact;
 
     @Column(name = "profession")

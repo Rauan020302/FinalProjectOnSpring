@@ -13,4 +13,5 @@ public interface ChildService {
     Child saveChild(ChildModel childModel);
     Child updateChild(ChildModel childModel,Long id);
     List<Child> findAllByGroup_Id(Long id);
+    Child findByGroup_Id(Long id);
 }

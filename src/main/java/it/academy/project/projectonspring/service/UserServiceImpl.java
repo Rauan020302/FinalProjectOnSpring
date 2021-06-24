@@ -6,6 +6,7 @@ import it.academy.project.projectonspring.entity.UserRole;
 import it.academy.project.projectonspring.exception.AuthorizationException;
 import it.academy.project.projectonspring.exception.ObjectsNotFoundException;
 import it.academy.project.projectonspring.model.AuthModel;
+import it.academy.project.projectonspring.model.SignUpModel;
 import it.academy.project.projectonspring.model.UserModel;
 import it.academy.project.projectonspring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,24 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private User saveUserWithRole(User user) {
+    @Override
+    public User saveUser(SignUpModel signUpModel) throws AuthorizationException {
+        try {
+            if (signUpModel.getUsername().equals("") || signUpModel.getPassword().equals("")
+                    || signUpModel.getUsername() == null || signUpModel.getPassword() == null) {
+                throw new AuthorizationException();
+            }
+            User user = User.builder()
+                    .username(signUpModel.getUsername())
+                    .password(signUpModel.getPassword())
+                    .fullName(signUpModel.getFullName()).build();
+            return saveUserWithRole(user);
+        } catch (AuthorizationException e) {
+            throw new AuthorizationException("username or password is not correct");
+        }
+    }
+
+        private User saveUserWithRole(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user = userRepository.save(user);
         UserRole userRole = new UserRole();

@@ -20,7 +20,7 @@ public class CourseGroup {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "group_id")
     private Group group;
 }

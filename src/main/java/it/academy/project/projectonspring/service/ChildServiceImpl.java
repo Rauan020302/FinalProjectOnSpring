@@ -9,7 +9,6 @@ import it.academy.project.projectonspring.model.ChildModel;
 import it.academy.project.projectonspring.repository.ChildRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -75,6 +74,11 @@ public class ChildServiceImpl implements ChildService {
         }catch (ContactException e){
             throw new ContactException("bad number");
         }
+    }
+
+    @Override
+    public Child findByGroup_Id(Long id) {
+        return childRepository.findByGroup_Id(id);
     }
 
     @Override

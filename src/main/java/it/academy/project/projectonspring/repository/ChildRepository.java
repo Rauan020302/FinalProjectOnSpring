@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface ChildRepository extends JpaRepository<Child,Long> {
     List<Child> findAllByGroup_Id(Long id);
+    Child findByGroup_Id(Long id);
 }

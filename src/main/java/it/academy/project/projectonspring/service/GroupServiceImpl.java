@@ -1,10 +1,12 @@
 package it.academy.project.projectonspring.service;
 
+import it.academy.project.projectonspring.entity.Child;
 import it.academy.project.projectonspring.entity.Group;
 import it.academy.project.projectonspring.entity.Image;
 import it.academy.project.projectonspring.entity.KinderGarden;
 import it.academy.project.projectonspring.exception.ObjectsNotFoundException;
 import it.academy.project.projectonspring.model.GroupModel;
+import it.academy.project.projectonspring.repository.ChildRepository;
 import it.academy.project.projectonspring.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,8 @@ public class GroupServiceImpl implements GroupService{
     private KinderGardenService kinderGardenService;
     @Autowired
     private ImageService imageService;
+    @Autowired
+    private ChildService childService;
 
 
     @Override
@@ -39,6 +43,13 @@ public class GroupServiceImpl implements GroupService{
 
     @Override
     public Group deleteGroupById(Long id){
+//        List<Child> child =  childService.findAllByGroup_Id(id);
+//        for (long i = 0L; i<child.size(); i++){
+//            childService.deleteChildById(i);
+//            if (child.size() == 0L) break;
+//        }
+        Child child = childService.findByGroup_Id(id);
+        childService.deleteChildById(child.getId());
         Group group = getGroupById(id);
         if (group != null){
             groupRepository.delete(group);

@@ -30,7 +30,7 @@ public class NotFoundExceptionHandler {
         return new ResponseEntity<>(exception,badNumber);
     }
     @ExceptionHandler(value = {AuthorizationException.class})
-    public ResponseEntity<Object> hadleApiRequestException(AuthorizationException e){
+    public ResponseEntity<Object> handleApiRequestException(AuthorizationException e){
         HttpStatus auth = HttpStatus.FORBIDDEN;
         Exception exception = new Exception(
                 e.getMessage(),

@@ -3,6 +3,7 @@ package it.academy.project.projectonspring.controller;
 import it.academy.project.projectonspring.entity.User;
 import it.academy.project.projectonspring.exception.AuthorizationException;
 import it.academy.project.projectonspring.model.AuthModel;
+import it.academy.project.projectonspring.model.SignUpModel;
 import it.academy.project.projectonspring.model.UserModel;
 import it.academy.project.projectonspring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,11 @@ public class UserController {
     public User saveUser (@RequestBody UserModel userModel) throws AuthorizationException {
         return userService.saveUser(userModel);
     }
+    @PostMapping("sign-up-model")
+    public User saveUser (@RequestBody SignUpModel signUpModel) throws AuthorizationException {
+        return userService.saveUser(signUpModel);
+    }
+
     @PostMapping("/sign-in")
     public String getToken(@RequestBody AuthModel authModel) {
         return userService.getTokenByAuthModel(authModel);
