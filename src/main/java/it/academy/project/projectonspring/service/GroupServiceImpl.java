@@ -1,9 +1,6 @@
 package it.academy.project.projectonspring.service;
 
-import it.academy.project.projectonspring.entity.Child;
-import it.academy.project.projectonspring.entity.Group;
-import it.academy.project.projectonspring.entity.Image;
-import it.academy.project.projectonspring.entity.KinderGarden;
+import it.academy.project.projectonspring.entity.*;
 import it.academy.project.projectonspring.exception.ObjectsNotFoundException;
 import it.academy.project.projectonspring.model.GroupModel;
 import it.academy.project.projectonspring.repository.ChildRepository;
@@ -23,6 +20,8 @@ public class GroupServiceImpl implements GroupService{
     private ImageService imageService;
     @Autowired
     private ChildService childService;
+    @Autowired
+    private CourseGroupService courseGroupService;
 
 
     @Override
@@ -43,13 +42,14 @@ public class GroupServiceImpl implements GroupService{
 
     @Override
     public Group deleteGroupById(Long id){
-//        List<Child> child =  childService.findAllByGroup_Id(id);
-//        for (long i = 0L; i<child.size(); i++){
-//            childService.deleteChildById(i);
-//            if (child.size() == 0L) break;
-//        }
-        Child child = childService.findByGroup_Id(id);
-        childService.deleteChildById(child.getId());
+        List<CourseGroup> courseGroups = courseGroupService.findAllByGroup_Id(id);
+        for (CourseGroup courseGroup : courseGroups){
+            courseGroupService.deleteById(courseGroup.getId());
+        }
+        List<Child> children =  childService.findAllByGroup_Id(id);
+        for (Child child:children) {
+            childService.deleteChildById(child.getId());
+        }
         Group group = getGroupById(id);
         if (group != null){
             groupRepository.delete(group);
@@ -59,7 +59,7 @@ public class GroupServiceImpl implements GroupService{
     }
 
     @Override
-    public Group updateGroupById(GroupModel groupModel, Long id) throws ObjectsNotFoundException {
+    public Group updateGroupById(GroupModel groupModel, Long id){
         KinderGarden kinderGarden = kinderGardenService.getKGById(groupModel.getKinderGardenId());
         Image image = imageService.getImageById(groupModel.getImageId());
         try{
@@ -84,7 +84,7 @@ public class GroupServiceImpl implements GroupService{
     }
 
     @Override
-    public Group saveGroup(GroupModel groupModel) throws ObjectsNotFoundException {
+    public Group saveGroup(GroupModel groupModel){
         KinderGarden kinderGarden = kinderGardenService.getKGById(groupModel.getKinderGardenId());
         Image image = imageService.getImageById(groupModel.getImageId());
         try {

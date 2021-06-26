@@ -1,5 +1,6 @@
 package it.academy.project.projectonspring.service;
 
+import it.academy.project.projectonspring.entity.Group;
 import it.academy.project.projectonspring.entity.Image;
 import it.academy.project.projectonspring.entity.KinderGarden;
 import it.academy.project.projectonspring.entity.User;
@@ -20,6 +21,8 @@ public class KinderGardenServiceImpl implements KinderGardenService {
     private UserService userService;
     @Autowired
     private ImageService imageService;
+    @Autowired
+    private GroupService groupService;
 
     @Override
     public List<KinderGarden> getAllKG() {
@@ -64,6 +67,10 @@ public class KinderGardenServiceImpl implements KinderGardenService {
 
     @Override
     public KinderGarden deleteKGById(Long id) {
+        List<Group> groupList = groupService.findAllByKinderGarden_Id(id);
+        for (Group group :groupList) {
+            groupService.deleteGroupById(group.getId());
+        }
         KinderGarden kinderGarden = getKGById(id);
         if (kinderGarden != null) {
             kinderGardenRepository.delete(kinderGarden);

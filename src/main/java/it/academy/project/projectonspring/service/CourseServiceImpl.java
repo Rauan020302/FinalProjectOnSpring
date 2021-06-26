@@ -36,11 +36,11 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course updateCourseById(Course course, Long id){
-        Course course1 = getCourseById(id);
-        course1.setName(course.getName());
-        course1.setTimeEnd(course.getTimeEnd());
-        course1.setTimeStart(course.getTimeStart());
-        return saveCourse(course1);
+        Course newCourse = getCourseById(id);
+        newCourse.setName(course.getName());
+        newCourse.setTimeEnd(course.getTimeEnd());
+        newCourse.setTimeStart(course.getTimeStart());
+        return saveCourse(newCourse);
     }
 
     @Override

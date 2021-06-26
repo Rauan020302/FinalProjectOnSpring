@@ -28,9 +28,8 @@ public class Child {
     @Column(name = "gender",nullable = false)
     private String gender;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "group_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Group group;
 
     @Column(name = "parent_full_name",nullable = false)

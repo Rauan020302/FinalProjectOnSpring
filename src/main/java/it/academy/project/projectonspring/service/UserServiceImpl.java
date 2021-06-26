@@ -143,13 +143,13 @@ public class UserServiceImpl implements UserService {
     public String getTokenByAuthModel(AuthModel authModel){
         String authResult = "";
         User user = findByUsername(authModel.getUsername());
-        if (user == null) authResult = "Неверный логин/пароль";
+        if (user == null) authResult = "wrong login or password";
         else{
             if (passwordEncoder.matches(authModel.getPassword(),user.getPassword())){
                 String loginPassPair = user.getUsername() + ":" + authModel.getPassword();
                 authResult = "Basic " + Base64.getEncoder()
                         .encodeToString(loginPassPair.getBytes());
-            }else authResult = "Неверный логин/пароль";
+            }else authResult = "wrong login or password";
         }
 
         return authResult;
