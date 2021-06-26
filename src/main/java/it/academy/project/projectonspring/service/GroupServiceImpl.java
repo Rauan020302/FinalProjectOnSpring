@@ -22,6 +22,8 @@ public class GroupServiceImpl implements GroupService{
     private ChildService childService;
     @Autowired
     private CourseGroupService courseGroupService;
+    @Autowired
+    private DailyRegimeService dailyRegimeService;
 
 
     @Override
@@ -45,6 +47,10 @@ public class GroupServiceImpl implements GroupService{
         List<CourseGroup> courseGroups = courseGroupService.findAllByGroup_Id(id);
         for (CourseGroup courseGroup : courseGroups){
             courseGroupService.deleteById(courseGroup.getId());
+        }
+        List<DailyRegime> dailyRegimes = dailyRegimeService.findAllByGroup_Id(id);
+        for (DailyRegime dailyRegime : dailyRegimes){
+            dailyRegimeService.deleteDailyRegime(dailyRegime.getId());
         }
         List<Child> children =  childService.findAllByGroup_Id(id);
         for (Child child:children) {
