@@ -40,6 +40,7 @@ public class CourseServiceImpl implements CourseService {
         newCourse.setName(course.getName());
         newCourse.setTimeEnd(course.getTimeEnd());
         newCourse.setTimeStart(course.getTimeStart());
+        newCourse.setWeek(course.getWeek());
         return saveCourse(newCourse);
     }
 

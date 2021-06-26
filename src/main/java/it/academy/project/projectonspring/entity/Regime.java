@@ -3,6 +3,7 @@ package it.academy.project.projectonspring.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,8 +22,8 @@ public class Regime {
     private String name;
 
     @Column(name = "start_time")
-    private LocalDateTime timeStart;
+    private Time timeStart;
 
     @Column(name = "end_time")
-    private LocalDateTime timeEnd;
+    private Time timeEnd;
 }

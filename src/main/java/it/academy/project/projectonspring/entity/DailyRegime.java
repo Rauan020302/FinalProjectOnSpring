@@ -17,10 +17,10 @@ public class DailyRegime {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "group_id")
+    @JoinColumn(name = "group_id",nullable = false)
     private Group group;
 
     @ManyToOne
-    @JoinColumn(name = "regime_id")
+    @JoinColumn(name = "regime_id",nullable = false)
     private Regime regime;
 }

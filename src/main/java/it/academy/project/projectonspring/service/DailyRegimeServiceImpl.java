@@ -27,6 +27,13 @@ public class DailyRegimeServiceImpl implements DailyRegimeService {
     public DailyRegime saveDailyRegime(DailyRegimeModel dailyRegimeModel) {
         Regime regime = regimeService.getRegimeById(dailyRegimeModel.getRegimeId());
         Group group = groupService.getGroupById(dailyRegimeModel.getGroupId());
+//        List<DailyRegime> dailyRegimeList = dailyRegimeRepo.findAllByGroup_Id(dailyRegimeModel.getGroupId());
+//        for (DailyRegime d :dailyRegimeList) {
+//            if (d.getRegime().getId() == regime.getId()){
+//
+//            }
+//
+//        }
         try {
             if (regime == null || group == null) throw new ObjectsNotFoundException();
 

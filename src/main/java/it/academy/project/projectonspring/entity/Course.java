@@ -1,9 +1,10 @@
 package it.academy.project.projectonspring.entity;
 
+import it.academy.project.projectonspring.enums.Week;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.sql.Time;
 
 @Entity
 @Table(name = "course")
@@ -20,11 +21,14 @@ public class Course {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "week")
+    private Week week;
+
     @Column(name = "time_start")
-    private LocalDateTime timeStart;
+    private Time timeStart;
 
     @Column(name = "time_end")
-    private LocalDateTime timeEnd;
+    private Time timeEnd;
 
 
 }
