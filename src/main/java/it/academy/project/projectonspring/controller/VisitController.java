@@ -15,31 +15,35 @@ public class VisitController {
     private VisitService visitService;
 
     @PostMapping
-    public Visit saveCalendar(@RequestBody VisitModel visitModel){
-        return visitService.saveVisit(visitModel);
+    public String saveVisit(@RequestBody List<VisitModel> visitModels){
+        return visitService.saveVisit(visitModels);
     }
     @GetMapping("/{id}")
-    public Visit getCalendarById(@PathVariable Long id) {
+    public Visit getVisitById(@PathVariable Long id) {
         return visitService.getVisitById(id);
     }
     @GetMapping
-    public List<Visit> getAllCalendar(){
-            return visitService.getAllVisits();
+    public List<Visit> getAllVisit(){
+        return visitService.getAllVisits();
     }
-    @GetMapping("/group/{id}")
-    public List<Visit> getAllCalendarByGroupId(@PathVariable Long id){
-        return visitService.findAllByGroup_Id(id);
+    @GetMapping("/child/{id}/month/{month}")
+    public List<Visit> findAllByChild_IdAndDate_DayOfMonth(@PathVariable Long id,@PathVariable int month){
+        return visitService.findAllByChild_IdAndDate_DayOfMonth(id,month);
     }
+//    @GetMapping("/group/{id}")
+//    public List<Visit> getAllCalendarByGroupId(@PathVariable Long id){
+//        return visitService.findAllByGroup_Id(id);
+//    }
     @GetMapping("/child/{id}")
-    public List<Visit> getAllCalendarByChildId(@PathVariable Long id){
+    public List<Visit> getAllVisitByChildId(@PathVariable Long id){
         return visitService.findAllByChild_Id(id);
     }
     @PutMapping("/{id}")
-    public Visit updateCalendar(@PathVariable Long id, @RequestBody VisitModel visitModel){
+    public Visit updateVisit(@PathVariable Long id, @RequestBody VisitModel visitModel){
         return visitService.updateVisit(visitModel,id);
     }
     @DeleteMapping("/{id}")
-    public Visit deleteCalendar(@PathVariable Long id){
+    public Visit deleteVisit(@PathVariable Long id){
         return visitService.deleteVisit(id);
     }
 }

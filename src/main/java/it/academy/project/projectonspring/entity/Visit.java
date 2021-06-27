@@ -27,8 +27,8 @@ public class Visit {
     @JoinColumn(name = "child_id",nullable = false)
     private Child child;
 
-    @OneToOne
-    @JoinColumn(name = "group_id")
-    private Group group;
+//    @OneToOne
+//    @JoinColumn(name = "group_id")
+//    private Group group;
 
 }
