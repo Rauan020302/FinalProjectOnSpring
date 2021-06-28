@@ -67,10 +67,10 @@ public class VisitServiceImpl implements VisitService {
 
     }
 
-    @Override
-    public List<Visit> findAllByChild_IdAndDate_DayOfMonth(Long child_id, int date_dayOfMonth) {
-        return visitRepository.findAllByChild_IdAndDate_DayOfMonth(child_id,date_dayOfMonth);
-    }
+//    @Override
+//    public List<Visit> findAllByChild_IdAndDate_DayOfMonth(Long child_id, int date_dayOfMonth) {
+//        return visitRepository.findAllByChild_IdAndDate_DayOfMonth(child_id,date_dayOfMonth);
+//    }
 
     @Override
     public Visit saveVisit(Visit visit) {

@@ -14,5 +14,5 @@ public interface VisitService {
     String saveVisit(List<VisitModel> visitModels) ;
     //List<Visit> findAllByGroup_Id(Long id);
     List<Visit> findAllByChild_Id(Long id);
-    List<Visit> findAllByChild_IdAndDate_DayOfMonth(Long child_id, int date_dayOfMonth);
+    //List<Visit> findAllByChild_IdAndDate_DayOfMonth(Long child_id, int date_dayOfMonth);
 }

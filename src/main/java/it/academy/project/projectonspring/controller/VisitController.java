@@ -26,10 +26,10 @@ public class VisitController {
     public List<Visit> getAllVisit(){
         return visitService.getAllVisits();
     }
-    @GetMapping("/child/{id}/month/{month}")
-    public List<Visit> findAllByChild_IdAndDate_DayOfMonth(@PathVariable Long id,@PathVariable int month){
-        return visitService.findAllByChild_IdAndDate_DayOfMonth(id,month);
-    }
+//    @GetMapping("/child/{id}/month/{month}")
+//    public List<Visit> findAllByChild_IdAndDate_DayOfMonth(@PathVariable Long id,@PathVariable int month){
+//        return visitService.findAllByChild_IdAndDate_DayOfMonth(id,month);
+//    }
 //    @GetMapping("/group/{id}")
 //    public List<Visit> getAllCalendarByGroupId(@PathVariable Long id){
 //        return visitService.findAllByGroup_Id(id);
