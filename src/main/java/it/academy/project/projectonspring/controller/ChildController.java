@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/childs")
+@RequestMapping("/api/child")
 public class ChildController {
     @Autowired
     private ChildService childService;
@@ -18,7 +18,6 @@ public class ChildController {
     public Child saveChild(@RequestBody ChildModel childModel){
         return childService.saveChild(childModel);
     }
-
     @GetMapping
     public List<Child> getChild(){
         return childService.getChild();
@@ -27,17 +26,14 @@ public class ChildController {
     public List<Child> getChildByGroupId(@PathVariable Long id){
         return childService.findAllByGroup_Id(id);
     }
-
     @GetMapping("/{id}")
     public Child getChildById(@PathVariable Long id){
             return childService.getChildById(id);
     }
-
     @DeleteMapping("/{id}")
     public Child deleteChildById(@PathVariable Long id){
         return childService.deleteChildById(id);
     }
-
     @PutMapping("/{id}")
     public Child updateChildById(@RequestBody ChildModel childModel,
                                  @PathVariable Long id){

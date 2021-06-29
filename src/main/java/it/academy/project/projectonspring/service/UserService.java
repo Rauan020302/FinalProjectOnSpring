@@ -2,7 +2,6 @@ package it.academy.project.projectonspring.service;
 
 import it.academy.project.projectonspring.entity.User;
 import it.academy.project.projectonspring.exception.AuthorizationException;
-import it.academy.project.projectonspring.exception.ObjectsNotFoundException;
 import it.academy.project.projectonspring.model.AuthModel;
 import it.academy.project.projectonspring.model.SignUpModel;
 import it.academy.project.projectonspring.model.UserModel;

@@ -21,37 +21,6 @@ public class ChildServiceImpl implements ChildService {
     private ImageService imageService;
 
     @Override
-    public List<Child> findAllByGroup_Id(Long id) {
-        return childRepository.findAllByGroup_Id(id);
-    }
-
-    @Override
-    public List<Child> getChild() {
-        return childRepository.findAll();
-    }
-
-    @Override
-    public Child getChildById(Long id){
-        return childRepository.findById(id)
-                .orElseThrow(() -> new ObjectsNotFoundException("not found child by id - " + id));
-    }
-
-    @Override
-    public Child deleteChildById(Long id){
-        Child child = getChildById(id);
-        if (child != null){
-            childRepository.delete(child);
-            return child;
-        }
-        return null;
-    }
-
-    @Override
-    public Child saveChild(Child child) {
-        return childRepository.save(child);
-    }
-
-    @Override
     public Child saveChild(ChildModel childModel){
         Group group = groupService.getGroupById(childModel.getGroupId());
         Image image = imageService.getImageById(childModel.getImageId());
@@ -77,11 +46,6 @@ public class ChildServiceImpl implements ChildService {
     }
 
     @Override
-    public Child findByGroup_Id(Long id) {
-        return childRepository.findByGroup_Id(id);
-    }
-
-    @Override
     public Child updateChild(ChildModel childModel, Long id){
         Group group = groupService.getGroupById(childModel.getGroupId());
         Image image = imageService.getImageById(childModel.getImageId());
@@ -100,6 +64,40 @@ public class ChildServiceImpl implements ChildService {
         }catch (ObjectsNotFoundException e){
             throw new ObjectsNotFoundException("not found child by id - " + id);
         }
+    }
+
+    @Override
+    public Child deleteChildById(Long id){
+        Child child = getChildById(id);
+        if (child != null){
+            childRepository.delete(child);
+            return child;
+        }
+        return null;
+    }
+
+    @Override
+    public Child saveChild(Child child) {
+        return childRepository.save(child);
+    }
+    @Override
+    public Child findByGroup_Id(Long id) {
+        return childRepository.findByGroup_Id(id);
+    }
+    @Override
+    public List<Child> findAllByGroup_Id(Long id) {
+        return childRepository.findAllByGroup_Id(id);
+    }
+
+    @Override
+    public List<Child> getChild() {
+        return childRepository.findAll();
+    }
+
+    @Override
+    public Child getChildById(Long id){
+        return childRepository.findById(id)
+                .orElseThrow(() -> new ObjectsNotFoundException("not found child by id - " + id));
     }
 }
 

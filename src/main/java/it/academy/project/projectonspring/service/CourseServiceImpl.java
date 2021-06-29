@@ -14,17 +14,6 @@ public class CourseServiceImpl implements CourseService {
     private CourseRepository courseRepository;
 
     @Override
-    public List<Course> getALlCourse() {
-        return courseRepository.findAll();
-    }
-
-    @Override
-    public Course getCourseById(Long id){
-        return courseRepository.findById(id)
-                .orElseThrow(() -> new ObjectsNotFoundException("not found course by id - " + id));
-    }
-
-    @Override
     public Course deleteCourseById(Long id){
         Course course = getCourseById(id);
         if (course != null){
@@ -35,18 +24,36 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course updateCourseById(Course course, Long id){
+    public Course updateCourseById(Course course, Long id) {
         Course newCourse = getCourseById(id);
-        newCourse.setName(course.getName());
-        newCourse.setTimeEnd(course.getTimeEnd());
-        newCourse.setTimeStart(course.getTimeStart());
-        newCourse.setWeek(course.getWeek());
-        return saveCourse(newCourse);
+        try {
+            if (newCourse == null) throw new ObjectsNotFoundException();
+
+            newCourse.setName(course.getName());
+            newCourse.setTimeEnd(course.getTimeEnd());
+            newCourse.setTimeStart(course.getTimeStart());
+            newCourse.setWeek(course.getWeek());
+
+            return saveCourse(newCourse);
+
+        }catch (ObjectsNotFoundException e){
+            throw new ObjectsNotFoundException("not found course by id - " + id);
+        }
     }
 
     @Override
     public Course saveCourse(Course course) {
         return courseRepository.save(course);
+    }
+    @Override
+    public List<Course> getALlCourse() {
+        return courseRepository.findAll();
+    }
+
+    @Override
+    public Course getCourseById(Long id){
+        return courseRepository.findById(id)
+                .orElseThrow(() -> new ObjectsNotFoundException("not found course by id - " + id));
     }
 }
 

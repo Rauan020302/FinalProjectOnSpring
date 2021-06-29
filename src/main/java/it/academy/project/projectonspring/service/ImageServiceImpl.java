@@ -25,7 +25,7 @@ public class ImageServiceImpl implements ImageService {
     private ImageRepository imageRepository;
 
     @Override
-    public Image createImage(MultipartFile multipartFile) throws IOException{
+    public Image createImage(MultipartFile multipartFile) {
         Image image = new Image();
 
         File file;

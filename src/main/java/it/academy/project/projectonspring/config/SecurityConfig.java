@@ -3,6 +3,7 @@ package it.academy.project.projectonspring.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -41,8 +42,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers(HttpMethod.GET,"/api/garden/**").permitAll()
 //
 //                .antMatchers(HttpMethod.POST,"/api/image/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.DELETE,"/api/image/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.PUT,"/api/image/**").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.GET,"/api/image/**").permitAll()
 //
 //                .antMatchers(HttpMethod.POST,"/api/group/**").hasRole("ADMIN")
@@ -65,10 +64,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers(HttpMethod.PUT,"/api/child/**").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.GET,"/api/child/**").permitAll()
 //
-//                .antMatchers(HttpMethod.POST,"/api/calendar/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.DELETE,"/api/calendar/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.PUT,"/api/calendar/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.GET,"/api/calendar/**").permitAll()
+//                .antMatchers(HttpMethod.POST,"/api/visits/**").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.DELETE,"/api/visits/**").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.PUT,"/api/visits/**").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.GET,"/api/visits/**").permitAll()
+//
+//                .antMatchers(HttpMethod.POST,"/api/daily_regime/**").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.DELETE,"/api/daily_regime/**").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.PUT,"/api/daily_regime/**").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.GET,"/api/daily_regime/**").permitAll()
+//
+//                .antMatchers(HttpMethod.POST,"/api/regime/**").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.DELETE,"/api/regime/**").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.PUT,"/api/regime/**").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.GET,"/api/regime/**").permitAll()
+
                 .and().httpBasic().and().logout().and().formLogin();
     }
 
@@ -83,9 +93,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web){
         web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**");
     }
-
-
-
 
     @Bean
     public PasswordEncoder passwordEncoder(){

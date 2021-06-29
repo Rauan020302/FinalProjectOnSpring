@@ -25,22 +25,6 @@ public class KinderGardenServiceImpl implements KinderGardenService {
     private GroupService groupService;
 
     @Override
-    public List<KinderGarden> getAllKG() {
-        return kinderGardenRepository.findAll();
-    }
-
-    @Override
-    public KinderGarden getKGById(Long id){
-        return kinderGardenRepository.findById(id)
-                .orElseThrow(() -> new ObjectsNotFoundException("not found filial by id - " + id));
-    }
-
-    @Override
-    public KinderGarden saveKG(KinderGarden kinderGarden) {
-        return kinderGardenRepository.save(kinderGarden);
-    }
-
-    @Override
     public KinderGarden saveKG(KinderGardenModel kinderGardenModel){
         User user = userService.getUserById(kinderGardenModel.getUserId());
         Image image = imageService.getImageById(kinderGardenModel.getImageId());
@@ -62,8 +46,6 @@ public class KinderGardenServiceImpl implements KinderGardenService {
             throw new ContactException("contact number is not correct");
         }
     }
-
-
 
     @Override
     public KinderGarden deleteKGById(Long id) {
@@ -97,6 +79,22 @@ public class KinderGardenServiceImpl implements KinderGardenService {
         }catch (ObjectsNotFoundException e){
             throw new ObjectsNotFoundException("not found filial by id - " + id);
         }
+    }
+
+    @Override
+    public List<KinderGarden> getAllKG() {
+        return kinderGardenRepository.findAll();
+    }
+
+    @Override
+    public KinderGarden getKGById(Long id){
+        return kinderGardenRepository.findById(id)
+                .orElseThrow(() -> new ObjectsNotFoundException("not found filial by id - " + id));
+    }
+
+    @Override
+    public KinderGarden saveKG(KinderGarden kinderGarden) {
+        return kinderGardenRepository.save(kinderGarden);
     }
 }
 

@@ -21,27 +21,6 @@ public class CourseGroupServiceImpl implements CourseGroupService {
     private GroupService groupService;
 
     @Override
-    public List<CourseGroup> findAllByGroup_Id(Long id) {
-        return courseGroupRepository.findAllByGroup_Id(id);
-    }
-
-    @Override
-    public List<CourseGroup> findAllByCourse_Id(Long id) {
-        return courseGroupRepository.findAllByCourse_Id(id);
-    }
-
-    @Override
-    public List<CourseGroup> getAll() {
-        return courseGroupRepository.findAll();
-    }
-
-    @Override
-    public CourseGroup getById(Long id){
-        return courseGroupRepository.findById(id)
-                .orElseThrow(() -> new ObjectsNotFoundException("not found courseGroup by id - " + id));
-    }
-
-    @Override
     public CourseGroup deleteById(Long id){
         CourseGroup courseGroup = getById(id);
         if (courseGroup != null){
@@ -68,11 +47,6 @@ public class CourseGroupServiceImpl implements CourseGroupService {
     }
 
     @Override
-    public CourseGroup save(CourseGroup courseGroup) {
-        return courseGroupRepository.save(courseGroup);
-    }
-
-    @Override
     public CourseGroup updateById(CourseGroupModel courseGroupModel, Long id){
         Course course = courseService.getCourseById(courseGroupModel.getCourseId());
         Group group = groupService.getGroupById(courseGroupModel.getGroupId());
@@ -86,5 +60,30 @@ public class CourseGroupServiceImpl implements CourseGroupService {
         }catch (ObjectsNotFoundException e){
             throw new ObjectsNotFoundException("not found courseGroup by id - " + id);
         }
+    }
+    @Override
+    public CourseGroup save(CourseGroup courseGroup) {
+        return courseGroupRepository.save(courseGroup);
+    }
+
+    @Override
+    public List<CourseGroup> findAllByGroup_Id(Long id) {
+        return courseGroupRepository.findAllByGroup_Id(id);
+    }
+
+    @Override
+    public List<CourseGroup> findAllByCourse_Id(Long id) {
+        return courseGroupRepository.findAllByCourse_Id(id);
+    }
+
+    @Override
+    public List<CourseGroup> getAll() {
+        return courseGroupRepository.findAll();
+    }
+
+    @Override
+    public CourseGroup getById(Long id){
+        return courseGroupRepository.findById(id)
+                .orElseThrow(() -> new ObjectsNotFoundException("not found courseGroup by id - " + id));
     }
 }

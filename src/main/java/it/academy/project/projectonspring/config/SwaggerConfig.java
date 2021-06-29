@@ -36,6 +36,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 .addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
+
     private ApiInfo getApiInfo(){
         return new ApiInfoBuilder()
                 .title("Swagger Api Doc")

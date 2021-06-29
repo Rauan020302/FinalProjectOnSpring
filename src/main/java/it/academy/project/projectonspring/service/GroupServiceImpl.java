@@ -3,7 +3,6 @@ package it.academy.project.projectonspring.service;
 import it.academy.project.projectonspring.entity.*;
 import it.academy.project.projectonspring.exception.ObjectsNotFoundException;
 import it.academy.project.projectonspring.model.GroupModel;
-import it.academy.project.projectonspring.repository.ChildRepository;
 import it.academy.project.projectonspring.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,23 +23,6 @@ public class GroupServiceImpl implements GroupService{
     private CourseGroupService courseGroupService;
     @Autowired
     private DailyRegimeService dailyRegimeService;
-
-
-    @Override
-    public List<Group> findAllByKinderGarden_Id(Long id) {
-        return groupRepository.findAllByKinderGarden_Id(id);
-    }
-
-    @Override
-    public List<Group> getAllGroups() {
-        return groupRepository.findAll();
-    }
-
-    @Override
-    public Group getGroupById(Long id){
-        return groupRepository.findById(id)
-                .orElseThrow(() -> new ObjectsNotFoundException("not found group by id " + id));
-    }
 
     @Override
     public Group deleteGroupById(Long id){
@@ -85,11 +67,6 @@ public class GroupServiceImpl implements GroupService{
     }
 
     @Override
-    public Group saveGroup(Group group) {
-        return groupRepository.save(group);
-    }
-
-    @Override
     public Group saveGroup(GroupModel groupModel){
         KinderGarden kinderGarden = kinderGardenService.getKGById(groupModel.getKinderGardenId());
         Image image = imageService.getImageById(groupModel.getImageId());
@@ -107,6 +84,27 @@ public class GroupServiceImpl implements GroupService{
         }catch (ObjectsNotFoundException e ){
             throw new ObjectsNotFoundException("filial or image not found ");
         }
+    }
+
+    @Override
+    public List<Group> findAllByKinderGarden_Id(Long id) {
+        return groupRepository.findAllByKinderGarden_Id(id);
+    }
+
+    @Override
+    public List<Group> getAllGroups() {
+        return groupRepository.findAll();
+    }
+
+    @Override
+    public Group getGroupById(Long id){
+        return groupRepository.findById(id)
+                .orElseThrow(() -> new ObjectsNotFoundException("not found group by id " + id));
+    }
+
+    @Override
+    public Group saveGroup(Group group) {
+        return groupRepository.save(group);
     }
 }
 

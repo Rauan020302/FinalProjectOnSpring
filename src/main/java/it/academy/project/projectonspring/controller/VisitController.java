@@ -1,11 +1,11 @@
 package it.academy.project.projectonspring.controller;
 
 import it.academy.project.projectonspring.entity.Visit;
+import it.academy.project.projectonspring.model.MonthModel;
 import it.academy.project.projectonspring.model.VisitModel;
 import it.academy.project.projectonspring.service.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -15,8 +15,13 @@ public class VisitController {
     private VisitService visitService;
 
     @PostMapping
-    public String saveVisit(@RequestBody List<VisitModel> visitModels){
+    public List<VisitModel> saveVisit(@RequestBody List<VisitModel> visitModels){
         return visitService.saveVisit(visitModels);
+    }
+
+    @PostMapping("/month")
+    public List<Visit> getAllVisitByGroupIdAndMonth(@RequestBody MonthModel monthModel){
+        return visitService.findAllByGroup_IdAndMonth(monthModel);
     }
     @GetMapping("/{id}")
     public Visit getVisitById(@PathVariable Long id) {
@@ -26,14 +31,11 @@ public class VisitController {
     public List<Visit> getAllVisit(){
         return visitService.getAllVisits();
     }
-//    @GetMapping("/child/{id}/month/{month}")
-//    public List<Visit> findAllByChild_IdAndDate_DayOfMonth(@PathVariable Long id,@PathVariable int month){
-//        return visitService.findAllByChild_IdAndDate_DayOfMonth(id,month);
-//    }
-//    @GetMapping("/group/{id}")
-//    public List<Visit> getAllCalendarByGroupId(@PathVariable Long id){
-//        return visitService.findAllByGroup_Id(id);
-//    }
+
+    @GetMapping("/group/{id}")
+    public List<Visit> getAllCalendarByGroupId(@PathVariable Long id){
+        return visitService.findAllByGroup_Id(id);
+    }
     @GetMapping("/child/{id}")
     public List<Visit> getAllVisitByChildId(@PathVariable Long id){
         return visitService.findAllByChild_Id(id);

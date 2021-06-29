@@ -18,14 +18,17 @@ public class UserRoleServiceImpl implements UserRoleService {
     private UserService userService;
 
     @Override
-    public List<UserRole> getAllUserRoles() {
-        return userRoleRepository.findAll();
-    }
-
-    @Override
-    public UserRole getRoleById(Long id){
-        return userRoleRepository.findById(id)
-                .orElseThrow(() -> new ObjectsNotFoundException("not found userRole by id - " + id));
+    public UserRole saveRole(UserRoleModel userRoleModel){
+        User user = userService.getUserById(userRoleModel.getUserId());
+        try {
+            if (user == null)throw new ObjectsNotFoundException();
+            UserRole userRole = UserRole.builder()
+                    .roleName(userRoleModel.getRoleName())
+                    .user(user).build();
+            return saveRole(userRole);
+        }catch (ObjectsNotFoundException e){
+            throw new ObjectsNotFoundException("user not found by id - " + user.getId());
+        }
     }
 
     @Override
@@ -51,7 +54,11 @@ public class UserRoleServiceImpl implements UserRoleService {
             throw new ObjectsNotFoundException("not found userRole by id - " + id);
         }
     }
-
+    @Override
+    public UserRole getRoleById(Long id){
+        return userRoleRepository.findById(id)
+                .orElseThrow(() -> new ObjectsNotFoundException("not found userRole by id - " + id));
+    }
     @Override
     public List<UserRole> findAllByUser_Id(Long id) {
         return userRoleRepository.findAllByUser_Id(id);
@@ -68,17 +75,8 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public UserRole saveRole(UserRoleModel userRoleModel){
-        User user = userService.getUserById(userRoleModel.getUserId());
-        try {
-            if (user == null)throw new ObjectsNotFoundException();
-            UserRole userRole = UserRole.builder()
-                    .roleName(userRoleModel.getRoleName())
-                    .user(user).build();
-            return saveRole(userRole);
-        }catch (ObjectsNotFoundException e){
-            throw new ObjectsNotFoundException("user not found by id - " + user.getId());
-        }
+    public List<UserRole> getAllUserRoles() {
+        return userRoleRepository.findAll();
     }
 }
 

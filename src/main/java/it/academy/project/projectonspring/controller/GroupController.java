@@ -14,14 +14,14 @@ public class GroupController {
     @Autowired
     private GroupService groupService;
 
+    @PostMapping
+    public Group saveGroup(@RequestBody GroupModel groupModel){
+        return groupService.saveGroup(groupModel);
+    }
 
     @GetMapping("/get/{id}")
     public List<Group> getGroupByKGId(@PathVariable Long id){
         return groupService.findAllByKinderGarden_Id(id);
-    }
-    @PostMapping
-    public Group saveGroup(@RequestBody GroupModel groupModel){
-        return groupService.saveGroup(groupModel);
     }
 
     @GetMapping

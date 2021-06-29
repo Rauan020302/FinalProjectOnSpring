@@ -14,6 +14,11 @@ public class CourseGroupController {
     @Autowired
     private CourseGroupService courseGroupService;
 
+    @PostMapping
+    public CourseGroup save(@RequestBody CourseGroupModel courseGroupModel){
+        return courseGroupService.save(courseGroupModel);
+    }
+
     @GetMapping("/course/{id}")
     public List<CourseGroup> getCourseGroupByCourseId(@PathVariable Long id){
         return courseGroupService.findAllByCourse_Id(id);
@@ -23,10 +28,7 @@ public class CourseGroupController {
         return courseGroupService.findAllByGroup_Id(id);
     }
 
-    @PostMapping
-    public CourseGroup save(@RequestBody CourseGroupModel courseGroupModel){
-        return courseGroupService.save(courseGroupModel);
-    }
+
     @GetMapping
     public List<CourseGroup> getAll(){
         return courseGroupService.getAll();

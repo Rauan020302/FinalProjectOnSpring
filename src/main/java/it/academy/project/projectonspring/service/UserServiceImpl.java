@@ -41,6 +41,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public String getTokenByAuthModel(AuthModel authModel){
+        String authResult = "";
+        User user = findByUsername(authModel.getUsername());
+        if (user == null) authResult = "wrong login or password";
+        else{
+            if (passwordEncoder.matches(authModel.getPassword(),user.getPassword())){
+                String loginPassPair = user.getUsername() + ":" + authModel.getPassword();
+                authResult = "Basic " + Base64.getEncoder()
+                        .encodeToString(loginPassPair.getBytes());
+            }else authResult = "wrong login or password";
+        }
+
+        return authResult;
+    }
+
+    @Override
     public User saveUser(UserModel userModel) throws AuthorizationException {
         try {
             if (userModel.getUsername().equals("") || userModel.getPassword().equals("")
@@ -126,8 +142,6 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ObjectsNotFoundException("not found user by id - " + id));
     }
 
-
-
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -137,22 +151,6 @@ public class UserServiceImpl implements UserService {
     public User findByUsername(String login){
         return userRepository.findByUsername(login)
                 .orElseThrow(() -> new ObjectsNotFoundException("not found user by username " + login));
-    }
-
-    @Override
-    public String getTokenByAuthModel(AuthModel authModel){
-        String authResult = "";
-        User user = findByUsername(authModel.getUsername());
-        if (user == null) authResult = "wrong login or password";
-        else{
-            if (passwordEncoder.matches(authModel.getPassword(),user.getPassword())){
-                String loginPassPair = user.getUsername() + ":" + authModel.getPassword();
-                authResult = "Basic " + Base64.getEncoder()
-                        .encodeToString(loginPassPair.getBytes());
-            }else authResult = "wrong login or password";
-        }
-
-        return authResult;
     }
 
     @Override

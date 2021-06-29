@@ -14,6 +14,11 @@ public class DailyRegimeController {
     @Autowired
     private DailyRegimeService dailyRegimeService;
 
+    @PostMapping
+    public DailyRegime saveDailyRegime(@RequestBody DailyRegimeModel dailyRegimeModel){
+        return dailyRegimeService.saveDailyRegime(dailyRegimeModel);
+    }
+
     @GetMapping
     public List<DailyRegime> getAllDailyRegime(){
         return dailyRegimeService.getAllDailyRegime();
@@ -42,10 +47,7 @@ public class DailyRegimeController {
     public DailyRegime updateDailyRegime(@RequestBody DailyRegimeModel dailyRegimeModel,@PathVariable Long id){
         return dailyRegimeService.updateDailyRegime(dailyRegimeModel,id);
     }
-    @PostMapping
-    public DailyRegime saveDailyRegime(@RequestBody DailyRegimeModel dailyRegimeModel){
-        return dailyRegimeService.saveDailyRegime(dailyRegimeModel);
-    }
+
 
 
 }

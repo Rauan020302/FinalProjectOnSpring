@@ -13,6 +13,10 @@ public class RegimeController {
     @Autowired
     private RegimeService regimeService;
 
+    @PostMapping
+    public Regime saveRegime(@RequestBody Regime regime){
+        return regimeService.saveRegime(regime);
+    }
     @GetMapping
     public List<Regime> getAllRegime(){
         return regimeService.getAllRegime();
@@ -20,10 +24,6 @@ public class RegimeController {
     @GetMapping("/{id}")
     public Regime getRegimeById(@PathVariable Long id){
         return regimeService.getRegimeById(id);
-    }
-    @PostMapping
-    public Regime saveRegime(@RequestBody Regime regime){
-        return regimeService.saveRegime(regime);
     }
     @DeleteMapping("/{id}")
     public Regime deleteRegime(@PathVariable Long id){
