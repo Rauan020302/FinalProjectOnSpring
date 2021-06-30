@@ -23,12 +23,18 @@ public class GroupServiceImpl implements GroupService{
     private CourseGroupService courseGroupService;
     @Autowired
     private DailyRegimeService dailyRegimeService;
+    @Autowired
+    private VisitService visitService;
 
     @Override
     public Group deleteGroupById(Long id){
         List<CourseGroup> courseGroups = courseGroupService.findAllByGroup_Id(id);
         for (CourseGroup courseGroup : courseGroups){
             courseGroupService.deleteById(courseGroup.getId());
+        }
+        List<Visit> visits = visitService.findAllByGroup_Id(id);
+        for (Visit visit : visits){
+            visitService.deleteVisit(visit.getId());
         }
         List<DailyRegime> dailyRegimes = dailyRegimeService.findAllByGroup_Id(id);
         for (DailyRegime dailyRegime : dailyRegimes){

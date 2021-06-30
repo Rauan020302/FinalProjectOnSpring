@@ -22,7 +22,7 @@ public class Group {
     @Column(name = "full_name_teacher")
     private String teacherFullName;
 
-    @Column(name = "info")
+    @Column(name = "info",length = 800)
     private String info;
 
     @ManyToOne

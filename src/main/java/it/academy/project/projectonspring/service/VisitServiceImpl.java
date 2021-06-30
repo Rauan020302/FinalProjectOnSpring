@@ -75,9 +75,8 @@ public class VisitServiceImpl implements VisitService {
             if (visits == null) throw new ObjectsNotFoundException();
 
             for (Visit visit : visits) {
-                int month = visit.getDate().getMonthValue();
-                if (month < monthModel.getEndDate().getMonthValue()
-                        && month > monthModel.getStartDate().getMonthValue()) {
+                int monthValue = visit.getDate().getMonthValue();
+                if (monthValue == monthModel.getMonth()) {
 
                     newVisits.add(visit);
                 }
