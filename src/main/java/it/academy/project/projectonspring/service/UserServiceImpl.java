@@ -41,8 +41,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String getTokenByAuthModel(AuthModel authModel){
-        String authResult = "";
+    public AuthModel getTokenByAuthModel(AuthModel authModel){
+        String authResult;
         User user = findByUsername(authModel.getUsername());
         if (user == null) authResult = "wrong login or password";
         else{
@@ -50,10 +50,11 @@ public class UserServiceImpl implements UserService {
                 String loginPassPair = user.getUsername() + ":" + authModel.getPassword();
                 authResult = "Basic " + Base64.getEncoder()
                         .encodeToString(loginPassPair.getBytes());
+
             }else authResult = "wrong login or password";
         }
-
-        return authResult;
+        authModel.setToken(authResult);
+        return authModel;
     }
 
     @Override

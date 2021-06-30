@@ -22,8 +22,6 @@ public class VisitServiceImpl implements VisitService {
     private GroupService groupService;
     @Autowired
     private ChildService childService;
-    @Autowired
-    private UserService userService;
 
     @Override
     public Visit getVisitById(Long id) {
@@ -72,7 +70,7 @@ public class VisitServiceImpl implements VisitService {
         List<Visit> visits = visitRepository.findAllByGroup_Id(monthModel.getGroupId());
         List<Visit> newVisits = new ArrayList<>();
         try {
-            if (visits == null) throw new ObjectsNotFoundException();
+            if (visits.size() == 0) throw new ObjectsNotFoundException();
 
             for (Visit visit : visits) {
                 int monthValue = visit.getDate().getMonthValue();

@@ -14,4 +14,6 @@ public class AuthModel {
 
     private String password;
 
+    private String token;
+
 }

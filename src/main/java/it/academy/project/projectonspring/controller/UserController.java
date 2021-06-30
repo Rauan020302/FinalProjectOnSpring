@@ -27,7 +27,7 @@ public class UserController {
     }
 
     @PostMapping("/sign-in")
-    public String getToken(@RequestBody AuthModel authModel) {
+    public AuthModel getToken(@RequestBody AuthModel authModel) {
         return userService.getTokenByAuthModel(authModel);
     }
 

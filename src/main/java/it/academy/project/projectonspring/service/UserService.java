@@ -17,6 +17,6 @@ public interface UserService {
     User deleteUserById(Long id);
     User updateUserById(UserModel userModel,Long id) throws AuthorizationException;
     User findByUsername(String login);
-    String getTokenByAuthModel(AuthModel authModel);
+    AuthModel getTokenByAuthModel(AuthModel authModel);
     List<User> findAllByStatus(Long status);
 }
