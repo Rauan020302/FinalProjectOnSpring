@@ -53,6 +53,7 @@ public class UserServiceImpl implements UserService {
 
             }else authResult = "wrong login or password";
         }
+        authModel.setPassword(passwordEncoder.encode(authModel.getPassword()));
         authModel.setToken(authResult);
         return authModel;
     }

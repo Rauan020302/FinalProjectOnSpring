@@ -3,12 +3,17 @@ package it.academy.project.projectonspring.service;
 import it.academy.project.projectonspring.entity.Child;
 import it.academy.project.projectonspring.entity.Group;
 import it.academy.project.projectonspring.entity.Image;
+import it.academy.project.projectonspring.entity.Visit;
 import it.academy.project.projectonspring.exception.ContactException;
 import it.academy.project.projectonspring.exception.ObjectsNotFoundException;
 import it.academy.project.projectonspring.model.ChildModel;
+import it.academy.project.projectonspring.model.ChildWithoutVisitModel;
 import it.academy.project.projectonspring.repository.ChildRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,6 +24,8 @@ public class ChildServiceImpl implements ChildService {
     private GroupService groupService;
     @Autowired
     private ImageService imageService;
+    @Autowired
+    private VisitService visitService;
 
     @Override
     public Child saveChild(ChildModel childModel){
@@ -36,6 +43,7 @@ public class ChildServiceImpl implements ChildService {
                     .contact(childModel.getContact())
                     .parent(childModel.getParent())
                     .group(group).build();
+            saveChild(child);
             return saveChild(child);
 
         }catch (ObjectsNotFoundException e){
@@ -68,6 +76,10 @@ public class ChildServiceImpl implements ChildService {
 
     @Override
     public Child deleteChildById(Long id){
+        List<Visit> visits = visitService.findAllByChild_Id(id);
+        for (Visit visit :visits) {
+            childRepository.deleteById(visit.getId());
+        }
         Child child = getChildById(id);
         if (child != null){
             childRepository.delete(child);
@@ -80,10 +92,12 @@ public class ChildServiceImpl implements ChildService {
     public Child saveChild(Child child) {
         return childRepository.save(child);
     }
+
     @Override
-    public Child findByGroup_Id(Long id) {
-        return childRepository.findByGroup_Id(id);
+    public List<Child> findAllByBirthDayAfter(LocalDate date) {
+        return childRepository.findAllByBirthDayAfter(date);
     }
+
     @Override
     public List<Child> findAllByGroup_Id(Long id) {
         return childRepository.findAllByGroup_Id(id);
@@ -98,6 +112,28 @@ public class ChildServiceImpl implements ChildService {
     public Child getChildById(Long id){
         return childRepository.findById(id)
                 .orElseThrow(() -> new ObjectsNotFoundException("not found child by id - " + id));
+    }
+
+    @Override
+    public List<ChildWithoutVisitModel> findAllByGroupKinderGarden_Id(Long id) {
+        List<Child> childList = childRepository.findAllByGroupKinderGarden_Id(id);
+        List<ChildWithoutVisitModel> childWithoutVisitModelList = new ArrayList<>();
+
+        for (Child child : childList){
+            ChildWithoutVisitModel childWithoutVisitModel = ChildWithoutVisitModel.builder()
+                    .id(child.getId())
+                    .fullName(child.getFullName())
+                    .gender(child.getGender())
+                    .contact(child.getContact())
+                    .image(child.getImage())
+                    .birthDay(child.getBirthDay())
+                    .group(child.getGroup())
+                    .parent(child.getParent())
+                    .build();
+            childWithoutVisitModelList.add(childWithoutVisitModel);
+        }
+
+        return childWithoutVisitModelList;
     }
 }
 

@@ -1,5 +1,7 @@
 package it.academy.project.projectonspring.model;
 
+import it.academy.project.projectonspring.entity.Group;
+import it.academy.project.projectonspring.entity.Image;
 import it.academy.project.projectonspring.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,18 +14,20 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Data
 @Builder
-public class ChildModel {
+public class ChildWithoutVisitModel {
+    private Long id;
+
     private String fullName;
 
     private LocalDate birthDay;
 
     private Gender gender;
 
-    private Long groupId;
+    private Group group;
 
     private String parent;
 
     private Integer contact;
 
-    private Long imageId;
+    private Image image;
 }

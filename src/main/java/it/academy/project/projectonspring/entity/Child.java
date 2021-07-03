@@ -1,5 +1,6 @@
 package it.academy.project.projectonspring.entity;
 
+import it.academy.project.projectonspring.enums.Gender;
 import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -23,9 +24,9 @@ public class Child {
     private LocalDate birthDay;
 
     @Column(name = "gender",nullable = false)
-    private String gender;
+    private Gender gender;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "group_id")
     private Group group;
 
@@ -38,5 +39,8 @@ public class Child {
     @OneToOne
     @JoinColumn(name = "image_id")
     private Image image;
+
+    @OneToOne(mappedBy = "child",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
+    private Visit visit;
 
 }

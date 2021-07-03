@@ -3,13 +3,11 @@ package it.academy.project.projectonspring.service;
 import it.academy.project.projectonspring.entity.Group;
 import it.academy.project.projectonspring.entity.Visit;
 import it.academy.project.projectonspring.entity.Child;
-import it.academy.project.projectonspring.entity.User;
 import it.academy.project.projectonspring.exception.ObjectsNotFoundException;
 import it.academy.project.projectonspring.model.MonthModel;
 import it.academy.project.projectonspring.model.VisitModel;
 import it.academy.project.projectonspring.repository.VisitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +23,6 @@ public class VisitServiceImpl implements VisitService {
 
     @Override
     public Visit getVisitById(Long id) {
-//        User user = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-//        Visit visit = visitRepository.findById(id).orElse(null);
-//        Long groupId = visit.getGroup().getId();
-//        if (!visit.getGroup().getKinderGarden().getUser().getUsername().equals(user.getUsername()) || !groupId.equals(id)){
-//            throw new ObjectsNotFoundException("not found");
-//        }
         return visitRepository.findById(id)
                 .orElseThrow(() -> new ObjectsNotFoundException("No visits by Id: " + id));
     }
