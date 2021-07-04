@@ -20,7 +20,7 @@ public class KinderGarden {
     @Column(name = "name",nullable = false)
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "description",length = 2000)
     private String description;
 
     @Column(name = "address",nullable = false,unique = true)
