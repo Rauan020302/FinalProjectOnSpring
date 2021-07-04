@@ -16,4 +16,5 @@ public interface ChildService {
     List<Child> findAllByGroup_Id(Long id);
     List<Child> findAllByBirthDayAfter(LocalDate date);
     List<ChildWithoutVisitModel> findAllByGroupKinderGarden_Id(Long id);
+
 }
