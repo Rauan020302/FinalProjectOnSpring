@@ -24,7 +24,7 @@ public class Visit {
     private Boolean visit;
 
 
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToOne()
     @JoinColumn(name = "child_id")
     private Child child;
 
