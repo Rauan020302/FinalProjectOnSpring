@@ -40,7 +40,4 @@ public class Child {
     @JoinColumn(name = "image_id")
     private Image image;
 
-    @OneToOne(mappedBy = "child",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
-    private Visit visit;
-
 }

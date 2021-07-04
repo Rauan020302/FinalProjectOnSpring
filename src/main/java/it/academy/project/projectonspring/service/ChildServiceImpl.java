@@ -3,17 +3,12 @@ package it.academy.project.projectonspring.service;
 import it.academy.project.projectonspring.entity.Child;
 import it.academy.project.projectonspring.entity.Group;
 import it.academy.project.projectonspring.entity.Image;
-import it.academy.project.projectonspring.entity.Visit;
 import it.academy.project.projectonspring.exception.ContactException;
 import it.academy.project.projectonspring.exception.ObjectsNotFoundException;
 import it.academy.project.projectonspring.model.ChildModel;
-import it.academy.project.projectonspring.model.ChildWithoutVisitModel;
 import it.academy.project.projectonspring.repository.ChildRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,8 +19,6 @@ public class ChildServiceImpl implements ChildService {
     private GroupService groupService;
     @Autowired
     private ImageService imageService;
-    @Autowired
-    private VisitService visitService;
 
     @Override
     public Child saveChild(ChildModel childModel){
@@ -43,7 +36,6 @@ public class ChildServiceImpl implements ChildService {
                     .contact(childModel.getContact())
                     .parent(childModel.getParent())
                     .group(group).build();
-            saveChild(child);
             return saveChild(child);
 
         }catch (ObjectsNotFoundException e){
@@ -76,10 +68,6 @@ public class ChildServiceImpl implements ChildService {
 
     @Override
     public Child deleteChildById(Long id){
-        List<Visit> visits = visitService.findAllByChild_Id(id);
-        for (Visit visit :visits) {
-            childRepository.deleteById(visit.getId());
-        }
         Child child = getChildById(id);
         if (child != null){
             childRepository.delete(child);
@@ -92,74 +80,24 @@ public class ChildServiceImpl implements ChildService {
     public Child saveChild(Child child) {
         return childRepository.save(child);
     }
-
     @Override
-    public List<Child> findAllByBirthDayAfter(LocalDate date) {
-        return childRepository.findAllByBirthDayAfter(date);
+    public Child findByGroup_Id(Long id) {
+        return childRepository.findByGroup_Id(id);
     }
-
     @Override
     public List<Child> findAllByGroup_Id(Long id) {
         return childRepository.findAllByGroup_Id(id);
     }
 
     @Override
-    public List<ChildWithoutVisitModel> getChild() {
-        List<Child> childList = childRepository.findAll();
-        List<ChildWithoutVisitModel> childWithoutVisitModelList = new ArrayList<>();
-        for (Child child: childList) {
-            ChildWithoutVisitModel model = new ChildWithoutVisitModel();
-            model.setFullName(child.getFullName());
-            model.setBirthDay(child.getBirthDay());
-            model.setContact(child.getContact());
-            model.setGender(child.getGender());
-            model.setGroup(child.getGroup());
-            model.setImage(child.getImage());
-            model.setId(child.getId());
-            model.setParent(child.getParent());
-
-            childWithoutVisitModelList.add(model);
-        }
-        return childWithoutVisitModelList;
+    public List<Child> getChild() {
+        return childRepository.findAll();
     }
 
     @Override
-    public ChildWithoutVisitModel getChildById(Long id){
-        Child child = childRepository.findById(id)
+    public Child getChildById(Long id){
+        return childRepository.findById(id)
                 .orElseThrow(() -> new ObjectsNotFoundException("not found child by id - " + id));
-
-        ChildWithoutVisitModel model = new ChildWithoutVisitModel();
-                    model.setId(child.getId());
-                    model.setFullName(child.getFullName());
-                    model.setGender(child.getGender());
-                    model.setContact(child.getContact());
-                    model.setImage(child.getImage());
-                    model.setBirthDay(child.getBirthDay());
-                    model.setGroup(child.getGroup());
-                    model.setParent(child.getParent());
-        return model;
-    }
-
-    @Override
-    public List<ChildWithoutVisitModel> findAllByGroupKinderGarden_Id(Long id) {
-        List<Child> childList = childRepository.findAllByGroupKinderGarden_Id(id);
-        List<ChildWithoutVisitModel> childWithoutVisitModelList = new ArrayList<>();
-
-        for (Child child : childList){
-            ChildWithoutVisitModel model = new ChildWithoutVisitModel();
-                    model.setId(child.getId());
-                    model.setFullName(child.getFullName());
-                    model.setGender(child.getGender());
-                    model.setContact(child.getContact());
-                    model.setImage(child.getImage());
-                    model.setBirthDay(child.getBirthDay());
-                    model.setGroup(child.getGroup());
-                    model.setParent(child.getParent());
-
-            childWithoutVisitModelList.add(model);
-        }
-
-        return childWithoutVisitModelList;
     }
 }
 
