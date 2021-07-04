@@ -7,8 +7,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ChildService {
-    List<Child> getChild();
-    Child getChildById(Long id);
+    List<ChildWithoutVisitModel> getChild();
+    ChildWithoutVisitModel getChildById(Long id);
     Child deleteChildById(Long id);
     Child saveChild(Child child);
     Child saveChild(it.academy.project.projectonspring.model.ChildModel childModel);

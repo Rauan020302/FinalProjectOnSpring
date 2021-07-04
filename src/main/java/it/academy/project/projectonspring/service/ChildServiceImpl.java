@@ -104,14 +104,40 @@ public class ChildServiceImpl implements ChildService {
     }
 
     @Override
-    public List<Child> getChild() {
-        return childRepository.findAll();
+    public List<ChildWithoutVisitModel> getChild() {
+        List<Child> childList = childRepository.findAll();
+        List<ChildWithoutVisitModel> childWithoutVisitModelList = new ArrayList<>();
+        for (Child child: childList) {
+            ChildWithoutVisitModel model = new ChildWithoutVisitModel();
+            model.setFullName(child.getFullName());
+            model.setBirthDay(child.getBirthDay());
+            model.setContact(child.getContact());
+            model.setGender(child.getGender());
+            model.setGroup(child.getGroup());
+            model.setImage(child.getImage());
+            model.setId(child.getId());
+            model.setParent(child.getParent());
+
+            childWithoutVisitModelList.add(model);
+        }
+        return childWithoutVisitModelList;
     }
 
     @Override
-    public Child getChildById(Long id){
-        return childRepository.findById(id)
+    public ChildWithoutVisitModel getChildById(Long id){
+        Child child = childRepository.findById(id)
                 .orElseThrow(() -> new ObjectsNotFoundException("not found child by id - " + id));
+
+        ChildWithoutVisitModel model = new ChildWithoutVisitModel();
+                    model.setId(child.getId());
+                    model.setFullName(child.getFullName());
+                    model.setGender(child.getGender());
+                    model.setContact(child.getContact());
+                    model.setImage(child.getImage());
+                    model.setBirthDay(child.getBirthDay());
+                    model.setGroup(child.getGroup());
+                    model.setParent(child.getParent());
+        return model;
     }
 
     @Override
@@ -120,17 +146,17 @@ public class ChildServiceImpl implements ChildService {
         List<ChildWithoutVisitModel> childWithoutVisitModelList = new ArrayList<>();
 
         for (Child child : childList){
-            ChildWithoutVisitModel childWithoutVisitModel = ChildWithoutVisitModel.builder()
-                    .id(child.getId())
-                    .fullName(child.getFullName())
-                    .gender(child.getGender())
-                    .contact(child.getContact())
-                    .image(child.getImage())
-                    .birthDay(child.getBirthDay())
-                    .group(child.getGroup())
-                    .parent(child.getParent())
-                    .build();
-            childWithoutVisitModelList.add(childWithoutVisitModel);
+            ChildWithoutVisitModel model = new ChildWithoutVisitModel();
+                    model.setId(child.getId());
+                    model.setFullName(child.getFullName());
+                    model.setGender(child.getGender());
+                    model.setContact(child.getContact());
+                    model.setImage(child.getImage());
+                    model.setBirthDay(child.getBirthDay());
+                    model.setGroup(child.getGroup());
+                    model.setParent(child.getParent());
+
+            childWithoutVisitModelList.add(model);
         }
 
         return childWithoutVisitModelList;

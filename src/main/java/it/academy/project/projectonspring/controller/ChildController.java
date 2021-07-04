@@ -6,7 +6,6 @@ import it.academy.project.projectonspring.service.ChildService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class ChildController {
     }
 
     @GetMapping
-    public List<Child> getChild(){
+    public List<ChildWithoutVisitModel> getChild(){
         return childService.getChild();
     }
     @GetMapping("/group/{id}")
@@ -34,7 +33,7 @@ public class ChildController {
         return childService.findAllByGroup_Id(id);
     }
     @GetMapping("/{id}")
-    public Child getChildById(@PathVariable Long id){
+    public ChildWithoutVisitModel getChildById(@PathVariable Long id){
             return childService.getChildById(id);
     }
     @GetMapping("/garden/{id}")
