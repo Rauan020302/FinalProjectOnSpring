@@ -5,7 +5,7 @@ import it.academy.project.projectonspring.entity.Course;
 import java.util.List;
 
 public interface CourseService {
-    List<Course> getALlCourse();
+    List<Course> getAllCourse();
     Course getCourseById(Long id);
     Course deleteCourseById(Long id);
     Course updateCourseById(Course course, Long id);

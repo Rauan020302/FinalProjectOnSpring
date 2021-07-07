@@ -15,4 +15,5 @@ public interface DailyRegimeService {
     List<DailyRegime> findAllByGroup_Id(Long id);
     List<DailyRegime> findAllByRegime_Id(Long id);
     List<DailyRegime> findAllByGroup_IdOrderByRegimeAsc(Long group_id);
+
 }

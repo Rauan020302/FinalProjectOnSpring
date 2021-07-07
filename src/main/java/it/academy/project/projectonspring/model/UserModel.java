@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 
 public class UserModel {
+
     private String username;
 
     private String fullName;

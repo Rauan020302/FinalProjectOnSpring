@@ -1,5 +1,6 @@
 package it.academy.project.projectonspring.service;
 
+import it.academy.project.projectonspring.entity.Course;
 import it.academy.project.projectonspring.entity.Regime;
 import it.academy.project.projectonspring.exception.ObjectsNotFoundException;
 import it.academy.project.projectonspring.repository.RegimeRepository;
@@ -11,6 +12,12 @@ import java.util.List;
 public class RegimeServiceImpl implements RegimeService {
     @Autowired
     private RegimeRepository regimeRepository;
+    @Autowired
+    private CourseService courseService;
+//    @Autowired
+//    private CourseGroupService courseGroupService;
+//    @Autowired
+//    private DailyRegimeService dailyRegimeService;
 
     @Override
     public Regime updateRegime(Regime regime, Long id) {
@@ -45,6 +52,19 @@ public class RegimeServiceImpl implements RegimeService {
 
     @Override
     public Regime saveRegime(Regime regime) {
+        List<Course> courses = courseService.getAllCourse();
+//        List<DailyRegime> dailyRegimes = dailyRegimeService.findAllByGroup_Id();
+//        List<CourseGroup> courseGroups = courseGroupService.findAllByGroup_Id();
+        try {
+            for (Course course : courses) {
+                if (regime.getTimeStart() == course.getTimeStart() || regime.getTimeEnd() == course.getTimeEnd()) {
+                    throw new ObjectsNotFoundException();
+                }
+
+            }
+        }catch (ObjectsNotFoundException e){
+            throw new ObjectsNotFoundException("the time of the regime and the course conflict with each other ");
+        }
         return regimeRepository.save(regime);
     }
 

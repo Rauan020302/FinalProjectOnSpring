@@ -9,6 +9,7 @@ public interface GroupService {
     List<Group> getAllGroups();
     Group getGroupById(Long id);
     Group deleteGroupById(Long id);
+    void deleteById(Long id);
     Group updateGroupById(GroupModel groupModel, Long id);
     Group saveGroup(Group group);
     Group saveGroup(GroupModel groupModel);

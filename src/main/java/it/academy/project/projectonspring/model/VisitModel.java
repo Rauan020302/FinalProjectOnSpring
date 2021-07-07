@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class VisitModel {
+
     private LocalDate date;
 
     private Boolean visit;

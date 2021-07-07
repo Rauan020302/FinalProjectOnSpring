@@ -23,12 +23,6 @@ public class VisitServiceImpl implements VisitService {
 
     @Override
     public Visit getVisitById(Long id) {
-//        User user = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-//        Visit visit = visitRepository.findById(id).orElse(null);
-//        Long groupId = visit.getGroup().getId();
-//        if (!visit.getGroup().getKinderGarden().getUser().getUsername().equals(user.getUsername()) || !groupId.equals(id)){
-//            throw new ObjectsNotFoundException("not found");
-//        }
         return visitRepository.findById(id)
                 .orElseThrow(() -> new ObjectsNotFoundException("No visits by Id: " + id));
     }

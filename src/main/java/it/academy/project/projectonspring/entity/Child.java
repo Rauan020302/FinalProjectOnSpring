@@ -27,7 +27,7 @@ public class Child {
     private Gender gender;
 
     @ManyToOne
-    @JoinColumn(name = "group_id")
+    @JoinColumn(name = "group_id",nullable = false)
     private Group group;
 
     @Column(name = "parent_full_name",nullable = false)

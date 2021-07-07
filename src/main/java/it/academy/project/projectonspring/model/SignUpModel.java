@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class SignUpModel {
+
     private String username;
 
     private String password;

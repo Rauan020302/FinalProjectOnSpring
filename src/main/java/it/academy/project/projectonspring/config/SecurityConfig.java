@@ -26,58 +26,58 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
                 .antMatchers("/api/**").permitAll()
-//                .antMatchers(HttpMethod.GET,"/api/users/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.DELETE,"/api/users/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.PUT,"/api/users/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.POST,"/api/users/**").permitAll()
-//
-//                .antMatchers(HttpMethod.POST,"/api/user-role/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.DELETE,"/api/user-role/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.PUT,"/api/user-role/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.GET,"/api/user-role/**").permitAll()
-//
-//                .antMatchers(HttpMethod.POST,"/api/garden/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.DELETE,"/api/garden/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.PUT,"/api/garden/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.GET,"/api/garden/**").permitAll()
-//
-//                .antMatchers(HttpMethod.POST,"/api/image/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.GET,"/api/image/**").permitAll()
-//
-//                .antMatchers(HttpMethod.POST,"/api/group/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.DELETE,"/api/group/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.PUT,"/api/group/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.GET,"/api/group/**").permitAll()
-//
-//                .antMatchers(HttpMethod.POST,"/api/course_group/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.DELETE,"/api/course_group/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.PUT,"/api/course_group/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.GET,"/api/course_group/**").permitAll()
-//
-//                .antMatchers(HttpMethod.POST,"/api/course/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.DELETE,"/api/course/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.PUT,"/api/course/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.GET,"/api/course/**").permitAll()
-//
-//                .antMatchers(HttpMethod.POST,"/api/child/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.DELETE,"/api/child/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.PUT,"/api/child/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.GET,"/api/child/**").permitAll()
-//
-//                .antMatchers(HttpMethod.POST,"/api/visits/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.DELETE,"/api/visits/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.PUT,"/api/visits/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.GET,"/api/visits/**").permitAll()
-//
-//                .antMatchers(HttpMethod.POST,"/api/daily_regime/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.DELETE,"/api/daily_regime/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.PUT,"/api/daily_regime/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.GET,"/api/daily_regime/**").permitAll()
-//
-//                .antMatchers(HttpMethod.POST,"/api/regime/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.DELETE,"/api/regime/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.PUT,"/api/regime/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.GET,"/api/regime/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/api/users/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/api/users/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT,"/api/users/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST,"/api/users/**").permitAll()
+
+                .antMatchers(HttpMethod.POST,"/api/user-role/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/api/user-role/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT,"/api/user-role/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/api/user-role/**").permitAll()
+
+                .antMatchers(HttpMethod.POST,"/api/garden/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/api/garden/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT,"/api/garden/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/api/garden/**").permitAll()
+
+                .antMatchers(HttpMethod.POST,"/api/image/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/api/image/**").permitAll()
+
+                .antMatchers(HttpMethod.POST,"/api/group/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/api/group/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT,"/api/group/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/api/group/**").permitAll()
+
+                .antMatchers(HttpMethod.POST,"/api/course_group/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/api/course_group/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT,"/api/course_group/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/api/course_group/**").permitAll()
+
+                .antMatchers(HttpMethod.POST,"/api/course/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/api/course/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT,"/api/course/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/api/course/**").permitAll()
+
+                .antMatchers(HttpMethod.POST,"/api/child/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/api/child/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT,"/api/child/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/api/child/**").permitAll()
+
+                .antMatchers(HttpMethod.POST,"/api/visits/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/api/visits/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT,"/api/visits/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/api/visits/**").permitAll()
+
+                .antMatchers(HttpMethod.POST,"/api/daily_regime/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/api/daily_regime/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT,"/api/daily_regime/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/api/daily_regime/**").permitAll()
+
+                .antMatchers(HttpMethod.POST,"/api/regime/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/api/regime/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT,"/api/regime/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/api/regime/**").permitAll()
 
                 .and().httpBasic().and().logout().and().formLogin();
     }

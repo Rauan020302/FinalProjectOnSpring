@@ -1,7 +1,6 @@
 package it.academy.project.projectonspring.entity;
 
 import lombok.*;
-
 import javax.persistence.*;
 
 @Entity

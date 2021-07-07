@@ -19,7 +19,7 @@ public class CourseController {
     }
     @GetMapping
     public List<Course> getAllCourse(){
-        return courseService.getALlCourse();
+        return courseService.getAllCourse();
     }
     @GetMapping("/{id}")
     public Course getCourseById(@PathVariable Long id){

@@ -3,7 +3,6 @@ package it.academy.project.projectonspring.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "user_role")

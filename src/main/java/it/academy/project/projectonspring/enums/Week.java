@@ -1,7 +1,9 @@
 package it.academy.project.projectonspring.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import lombok.ToString;
 
+@ToString
 public enum Week {
     MONDAY("Понедельник"),
     TUESDAY("Вторник"),
@@ -14,13 +16,6 @@ public enum Week {
     String transfer;
     Week(String transfer) {
         this.transfer = transfer;
-    }
-
-    @Override
-    public String toString() {
-        return "Week{" +
-                "transfer='" + transfer + '\'' +
-                '}';
     }
 
     public String getTransfer() {

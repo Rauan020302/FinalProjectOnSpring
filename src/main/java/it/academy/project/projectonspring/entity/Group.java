@@ -19,7 +19,7 @@ public class Group {
     @Column(name = "name",nullable = false)
     private String name;
 
-    @Column(name = "full_name_teacher")
+    @Column(name = "full_name_teacher",nullable = false)
     private String teacherFullName;
 
     @Column(name = "info",length = 800)

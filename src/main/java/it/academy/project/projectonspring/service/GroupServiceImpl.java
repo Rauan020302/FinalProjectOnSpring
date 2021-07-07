@@ -27,32 +27,6 @@ public class GroupServiceImpl implements GroupService{
     private VisitService visitService;
 
     @Override
-    public Group deleteGroupById(Long id){
-        List<CourseGroup> courseGroups = courseGroupService.findAllByGroup_Id(id);
-        for (CourseGroup courseGroup : courseGroups){
-            courseGroupService.deleteById(courseGroup.getId());
-        }
-        List<Visit> visits = visitService.findAllByGroup_Id(id);
-        for (Visit visit : visits){
-            visitService.deleteVisit(visit.getId());
-        }
-        List<DailyRegime> dailyRegimes = dailyRegimeService.findAllByGroup_Id(id);
-        for (DailyRegime dailyRegime : dailyRegimes){
-            dailyRegimeService.deleteDailyRegime(dailyRegime.getId());
-        }
-        List<Child> children =  childService.findAllByGroup_Id(id);
-        for (Child child:children) {
-            childService.deleteChildById(child.getId());
-        }
-        Group group = getGroupById(id);
-        if (group != null){
-            groupRepository.delete(group);
-            return group;
-        }
-        return null;
-    }
-
-    @Override
     public Group updateGroupById(GroupModel groupModel, Long id){
         KinderGarden kinderGarden = kinderGardenService.getKGById(groupModel.getKinderGardenId());
         Image image = imageService.getImageById(groupModel.getImageId());
@@ -93,6 +67,31 @@ public class GroupServiceImpl implements GroupService{
     }
 
     @Override
+    public Group deleteGroupById(Long id){
+        List<CourseGroup> courseGroups = courseGroupService.findAllByGroup_Id(id);
+        for (CourseGroup courseGroup : courseGroups){
+            courseGroupService.deleteById(courseGroup.getId());
+        }
+        List<Visit> visits = visitService.findAllByGroup_Id(id);
+        for (Visit visit : visits){
+            visitService.deleteVisit(visit.getId());
+        }
+        List<DailyRegime> dailyRegimes = dailyRegimeService.findAllByGroup_Id(id);
+        for (DailyRegime dailyRegime : dailyRegimes){
+            dailyRegimeService.deleteDailyRegime(dailyRegime.getId());
+        }
+        List<Child> children =  childService.findAllByGroup_Id(id);
+        for (Child child:children) {
+            childService.deleteChildById(child.getId());
+        }
+        Group group = getGroupById(id);
+        if (group != null){
+            groupRepository.delete(group);
+            return group;
+        }
+        return null;
+    }
+    @Override
     public List<Group> findAllByKinderGarden_Id(Long id) {
         return groupRepository.findAllByKinderGarden_Id(id);
     }
@@ -111,6 +110,11 @@ public class GroupServiceImpl implements GroupService{
     @Override
     public Group saveGroup(Group group) {
         return groupRepository.save(group);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        groupRepository.deleteById(id);
     }
 }
 

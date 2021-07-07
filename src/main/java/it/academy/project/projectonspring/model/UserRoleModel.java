@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class UserRoleModel {
+
     private String roleName;
 
     private Long userId;

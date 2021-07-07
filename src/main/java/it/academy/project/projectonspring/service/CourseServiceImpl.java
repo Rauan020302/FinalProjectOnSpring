@@ -1,6 +1,7 @@
 package it.academy.project.projectonspring.service;
 
 import it.academy.project.projectonspring.entity.Course;
+import it.academy.project.projectonspring.entity.Regime;
 import it.academy.project.projectonspring.exception.ObjectsNotFoundException;
 import it.academy.project.projectonspring.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import java.util.List;
 public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseRepository courseRepository;
+    @Autowired
+    private RegimeService regimeService;
 
     @Override
     public Course deleteCourseById(Long id){
@@ -43,10 +46,21 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course saveCourse(Course course) {
+        List<Regime> regimes = regimeService.getAllRegime();
+        try{
+            for (Regime regime:regimes) {
+                if (regime.getTimeStart() == course.getTimeStart() || regime.getTimeEnd() == course.getTimeEnd()){
+                    throw new ObjectsNotFoundException();
+                }
+
+            }
+        }catch (ObjectsNotFoundException e){
+            throw new ObjectsNotFoundException("the time of the regime and the course conflict with each other ");
+        }
         return courseRepository.save(course);
     }
     @Override
-    public List<Course> getALlCourse() {
+    public List<Course> getAllCourse() {
         return courseRepository.findAll();
     }
 

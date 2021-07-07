@@ -3,7 +3,6 @@ package it.academy.project.projectonspring.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "kinder_garden")
@@ -20,7 +19,7 @@ public class KinderGarden {
     @Column(name = "name",nullable = false)
     private String name;
 
-    @Column(name = "description",length = 2000)
+    @Column(name = "description",length = 1024,nullable = false)
     private String description;
 
     @Column(name = "address",nullable = false,unique = true)

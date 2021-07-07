@@ -84,6 +84,7 @@ public class DailyRegimeServiceImpl implements DailyRegimeService {
     public List<DailyRegime> getAllDailyRegime() {
         return dailyRegimeRepo.findAll();
     }
+
     @Override
     public DailyRegime getDailyRegimeById(Long id) {
         return dailyRegimeRepo.findById(id).orElseThrow(() -> new ObjectsNotFoundException("not found daily regime by id - " + id ));

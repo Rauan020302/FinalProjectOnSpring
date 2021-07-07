@@ -23,8 +23,7 @@ public class Visit {
     @Column(name = "visit")
     private Boolean visit;
 
-
-    @OneToOne()
+    @OneToOne
     @JoinColumn(name = "child_id")
     private Child child;
 
