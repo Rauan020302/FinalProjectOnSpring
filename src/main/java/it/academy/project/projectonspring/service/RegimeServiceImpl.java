@@ -57,7 +57,7 @@ public class RegimeServiceImpl implements RegimeService {
 //        List<CourseGroup> courseGroups = courseGroupService.findAllByGroup_Id();
         try {
             for (Course course : courses) {
-                if (regime.getTimeStart() == course.getTimeStart() || regime.getTimeEnd() == course.getTimeEnd()) {
+                if (regime.getTimeStart().toString().equals(course.getTimeStart().toString()) || regime.getTimeEnd().toString().equals(course.getTimeEnd().toString())) {
                     throw new ObjectsNotFoundException();
                 }
 

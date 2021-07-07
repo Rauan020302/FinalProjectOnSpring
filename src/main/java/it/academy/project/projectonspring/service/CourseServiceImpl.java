@@ -49,7 +49,7 @@ public class CourseServiceImpl implements CourseService {
         List<Regime> regimes = regimeService.getAllRegime();
         try{
             for (Regime regime:regimes) {
-                if (regime.getTimeStart() == course.getTimeStart() || regime.getTimeEnd() == course.getTimeEnd()){
+                if (regime.getTimeStart().toString().equals(course.getTimeStart().toString()) || regime.getTimeEnd().toString().equals(course.getTimeEnd().toString())){
                     throw new ObjectsNotFoundException();
                 }
 
