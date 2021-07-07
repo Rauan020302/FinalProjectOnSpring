@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserRoleServiceImpl implements UserRoleService {
@@ -27,7 +28,7 @@ public class UserRoleServiceImpl implements UserRoleService {
                     .user(user).build();
             return saveRole(userRole);
         }catch (ObjectsNotFoundException e){
-            throw new ObjectsNotFoundException("user not found by id - " + user.getId());
+            throw new ObjectsNotFoundException("user not found by id - " + Objects.requireNonNull(user).getId());
         }
     }
 

@@ -94,6 +94,7 @@ public class UserServiceImpl implements UserService {
             User user = User.builder()
                     .username(signUpModel.getUsername())
                     .password(signUpModel.getPassword())
+                    .status(1L)
                     .fullName(signUpModel.getFullName()).build();
             return saveUserWithRole(user);
         } catch (AuthorizationException e) {
