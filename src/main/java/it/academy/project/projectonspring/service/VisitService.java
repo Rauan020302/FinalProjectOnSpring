@@ -15,4 +15,6 @@ public interface VisitService {
     List<Visit> findAllByGroup_Id(Long id);
     List<Visit> findAllByChild_Id(Long id);
     List<Visit> findAllByGroup_IdAndMonth(MonthModel monthModel);
+    List<Visit> findAllByGroup_IdAndMonthVisitFalse(MonthModel monthModel);
+    List<Visit> findAllByGroup_IdAndMonthVisitTrue(MonthModel monthModel);
 }

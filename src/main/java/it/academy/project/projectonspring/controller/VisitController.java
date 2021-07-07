@@ -23,6 +23,14 @@ public class VisitController {
     public List<Visit> getAllVisitByGroupIdAndMonth(@RequestBody MonthModel monthModel){
         return visitService.findAllByGroup_IdAndMonth(monthModel);
     }
+    @PostMapping("/month/true")
+    public List<Visit> getAllVisitByGroupIdAndMonthVisitTrue(@RequestBody MonthModel monthModel){
+        return visitService.findAllByGroup_IdAndMonthVisitTrue(monthModel);
+    }
+    @PostMapping("/month/false")
+    public List<Visit> getAllVisitByGroupIdAndMonthVisitFalse(@RequestBody MonthModel monthModel){
+        return visitService.findAllByGroup_IdAndMonthVisitFalse(monthModel);
+    }
     @GetMapping("/{id}")
     public Visit getVisitById(@PathVariable Long id) {
         return visitService.getVisitById(id);

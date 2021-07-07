@@ -78,6 +78,46 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
+    public List<Visit> findAllByGroup_IdAndMonthVisitFalse(MonthModel monthModel) {
+        List<Visit> visits = visitRepository.findAllByGroup_Id(monthModel.getGroupId());
+        List<Visit> newVisits = new ArrayList<>();
+        try {
+            if (visits.size() == 0) throw new ObjectsNotFoundException();
+
+            for (Visit visit : visits) {
+                int monthValue = visit.getDate().getMonthValue();
+                if (monthValue == monthModel.getMonth() && !visit.getVisit()) {
+
+                    newVisits.add(visit);
+                }
+            }
+            return newVisits;
+        }catch (ObjectsNotFoundException e){
+            throw new ObjectsNotFoundException("not found Visits by GroupId - " + monthModel.getGroupId());
+        }
+    }
+
+    @Override
+    public List<Visit> findAllByGroup_IdAndMonthVisitTrue(MonthModel monthModel) {
+        List<Visit> visits = visitRepository.findAllByGroup_Id(monthModel.getGroupId());
+        List<Visit> newVisits = new ArrayList<>();
+        try {
+            if (visits.size() == 0) throw new ObjectsNotFoundException();
+
+            for (Visit visit : visits) {
+                int monthValue = visit.getDate().getMonthValue();
+                if (monthValue == monthModel.getMonth() && visit.getVisit()) {
+
+                    newVisits.add(visit);
+                }
+            }
+            return newVisits;
+        }catch (ObjectsNotFoundException e){
+            throw new ObjectsNotFoundException("not found Visits by GroupId - " + monthModel.getGroupId());
+        }
+    }
+
+    @Override
     public List<VisitModel> saveVisit(List<VisitModel> visitModels){
         for (VisitModel v :visitModels) {
             Child child = childService.getChildById(v.getChildId());
